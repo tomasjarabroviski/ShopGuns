@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
 <?php
-    include_once('/referencias/estilos.html');
+    include_once('referencias/estilos.html');
 ?>
 </head>
 
@@ -63,7 +63,7 @@
     </div>
 
     <?php
-    include_once('/referencias/scripts.html');
+    include_once('referencias/scripts.html');
 ?>
   
 

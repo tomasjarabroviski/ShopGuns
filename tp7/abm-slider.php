@@ -20,7 +20,7 @@
 
 
     <?php
-    include_once('/referencias/estilos.html');
+    include_once('referencias/estilos.html');
     ?>
 
 </head>
@@ -28,30 +28,19 @@
 <body>
     
     <?php
-    include_once('/referencias/leftPanel.html');
+    include_once('referencias/leftPanel.html');
     // Left Panel
-
     ?>
-
-  
-
     <div id="right-panel" class="right-panel">
 
     <?php
-    include_once('/referencias/header.html');
-    // Left Panel
-
+    include_once('referencias/header.html');
     ?>
-
-
-
-
 
         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
                     </div>
                 </div>
             </div>
@@ -59,55 +48,42 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Table</a></li>
-                            <li class="active">Data table</li>
+                            <li><a href="#">Agregar Slider</a></li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
-
+     
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
-
+              
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Categorias</strong>
+                                <strong class="card-title">Slider</strong>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                    <thead>
+                          
+                                    <thead>   
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Codigo</th>
-                                            <th>Precio</th>
-                                            <th>Descuento</th>
-                                            <th>Stock Minimo</th>
-                                            <th>Stock Actual</th>
-                                            <th>Categoria</th>
                                             <th>Foto</th>
-                                            <th>Video</th>
-                                            <th>Descripcion Corta</th>
-                                            <th>Descripcion larga</th>
-                                            <th>Destacado</th>
-                                            <th>OnSale</th>
-                                            <th>Mostrar Home</th>
+                                            <th>Modificar</th>
+                                            <th>Eliminar</th>
+                                            <th>Ver</th>
 
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> 
                                         <tr>
-                                            <td>Glock gen 5</td>
-                                            <td>111111111</td>
-                                            <td>$85000</td>
-                                            <td>$400</td>
-                                            <td>5</td>
-                                            <td>12</td>
-                                            <td>Arma Corta</td>
-                                            <td> <a class="navbar-brand hidden" href="./"><img src="images/glock5.jpg"></a></td>
+                                            <td>Glock 5</td>
+                                            <td><a href="prueba"><img src="images/glock5prueba.png"></a></td>
+                                            <td><a href="prueba">Modificar</a></td>
+                                            <td><a href="prueba">Eliminar</a></td>
+                                            <td><a href="prueba">Ver</a></td>
                                         </tr>
                                         
                                     </tbody>
