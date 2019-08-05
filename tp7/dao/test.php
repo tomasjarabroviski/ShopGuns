@@ -20,7 +20,7 @@ $prod->destacadoProducto = 1;
 $prod->onSaleProducto = 0;
 $prod->mostrarHomeProducto = 1; 
 */
-
+/*
 $user = new Usuario();
 $user->idUsuario = 1;
 $user->mailUsuario = 'JEJEJE';
@@ -28,5 +28,7 @@ $user->ConstrasenaUsuario = 'AAAA';
 $user->nombreUsuario = 'dfgdfcg';
 $user->apellidoUsuario = 'sdfsdf';
 $resultado = UsuarioDao::eliminar(5);
-var_dump($resultado);
+var_dump($resultado);*/
+
+
 ?>
