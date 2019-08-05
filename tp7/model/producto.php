@@ -2,7 +2,7 @@
 
 final class producto{
 
-    public $idPrudcto;
+    public $idProducto;
     public $nombreProducto;
     public $codigoProducto;
     public $precioProdcuto;
@@ -13,7 +13,7 @@ final class producto{
     public $fotoProducto;
     public $videoProducto;
     public $descripcionCortaProducto;
-    public $descripcionLargaProducto;}
+    public $descripcionLargaProducto;
     public $destacadoProducto;
     public $onSaleProducto;
     public $mostrarHomeProducto;
