@@ -4,32 +4,44 @@ $accion = isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']; //RECIBO
 
 switch ($accion) {
     case 'nuevo':
-        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : $_GET['nombre'];	
-		$cat = new Categoria();
-		$cat->nombreCategoria = $nombre;
-		$resultado = CategoriaDao::nuevo($cat);	
+        $nombreUsuario = isset($_POST['nombreUsuario']) ? $_POST['nombreUsuario'] : $_GET['nombreUsuario'];	
+        $mailUsuario = isset($_POST['mailUsuario']) ? $_POST['mailUsuario'] : $_GET['mailUsuario'];	
+        $contrasenaUsuario = isset($_POST['contrasenaUsuario']) ? $_POST['contrasenaUsuario'] : $_GET['contrasenaUsuario'];	
+        $apellidoUsuario = isset($_POST['apellidoUsuario']) ? $_POST['apellidoUsuario'] : $_GET['apellidoUsuario'];	
+		$user = new Usuario();
+        $user->nombreUsuario = $nombreUsuario;
+        $user->mailUsuario = $mailUsuario;
+        $user->contrasenaUsuario = $contrasenaUsuario;
+        $user->apellidoUsuario = $apellidoUsuario;
+		$resultado = UsuarioDao::nuevo($user);	
 		echo json_encode($resultado);
         break;    
     case 'ObtenerPorID':
-        $idCategoria = isset($_POST['idCategoria']) ? $_POST['idCategoria'] : $_GET['idCategoria'];	
-        $resultado = CategoriaDao::ObtenerPorID($idCategoria);
+        $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : $_GET['idUsuario'];	
+        $resultado = UsuarioDao::ObtenerPorID($idUsuario);
 		echo json_encode($resultado);
         break;
     case 'ObtenerTodos':
-        $resultado = CategoriaDao::ObtenerTodos();
+        $resultado = UsuarioDao::ObtenerTodos();
 		echo json_encode($resultado);
         break;    
         case 'ObtenerTodos':
-        $resultado = CategoriaDao::ObtenerTodos();
+        $resultado = UsuarioDao::ObtenerTodos();
 		echo json_encode($resultado);
         break;
     case 'modificar':
-        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : $_GET['nombre'];	
-        $idCategoria = isset($_POST['idCategoria']) ? $_POST['idCategoria'] : $_GET['idCategoria'];	
-		$cat = new Categoria();
-        $cat->nombreCategoria = $nombre;
-        $cat->idCategoria = $idCategoria;
-		$resultado = CategoriaDao::modificar($cat);	
+        $idUsuario = isset($_POST['idUsuario']) ? $_POST['idUsuario'] : $_GET['idUsuario'];	
+        $nombreUsuario = isset($_POST['nombreUsuario']) ? $_POST['nombreUsuario'] : $_GET['nombreUsuario'];	
+        $mailUsuario = isset($_POST['mailUsuario']) ? $_POST['mailUsuario'] : $_GET['mailUsuario'];	
+        $contrasenaUsuario = isset($_POST['contrasenaUsuario']) ? $_POST['contrasenaUsuario'] : $_GET['contrasenaUsuario'];	
+        $apellidoUsuario = isset($_POST['apellidoUsuario']) ? $_POST['apellidoUsuario'] : $_GET['apellidoUsuario'];	
+		$user = new Usuario();
+        $user->nombreUsuario = $nombreUsuario;
+        $user->mailUsuario = $mailUsuario;
+        $user->contrasenaUsuario = $contrasenaUsuario;
+        $user->apellidoUsuario = $apellidoUsuario;
+        $user->idUsuario = $idUsuario;
+		$resultado = UsuarioDao::modificar($user);	
 		echo json_encode($resultado);
         break;    
 }

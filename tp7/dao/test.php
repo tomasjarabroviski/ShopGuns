@@ -1,5 +1,5 @@
 <?php
-include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/usuario.php');
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 
 /*$prod = new Producto();
 
@@ -27,8 +27,9 @@ $user->mailUsuario = 'JEJEJE';
 $user->ConstrasenaUsuario = 'AAAA'; 
 $user->nombreUsuario = 'dfgdfcg';
 $user->apellidoUsuario = 'sdfsdf';
-$resultado = UsuarioDao::eliminar(5);
-var_dump($resultado);*/
+*/
+$resultado = ProductoDao::ObtenerPorID(4);
+var_dump($resultado);
 
 
 ?>

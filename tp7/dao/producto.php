@@ -11,14 +11,14 @@ class ProductoDao {
             ":id" => $id
         );
         $DBH = new PDO("mysql:host=127.0.0.1;dbname=sistema", "root", "");
-		$query = 'SELECT * FROM productos where idPrudcto = :id';
+		$query = 'SELECT * FROM productos where idProducto = :id';
 		$STH = $DBH->prepare($query);
         $STH->setFetchMode(PDO::FETCH_ASSOC);
         $STH->execute($params);        
         if ($STH->rowCount() > 0)
         {            
             $row = $STH->fetch();
-            $prod->idPrudcto = $row['idPrudcto'];
+            $prod->idProducto = $row['idProducto'];
             $prod->nombreProducto = $row['nombreProducto'];
             $prod->codigoProducto = $row['codigoProducto'];
             $prod->precioProdcuto = $row['precioProdcuto'];
@@ -52,7 +52,7 @@ class ProductoDao {
             while($row = $STH->fetch())
             {
                 $prod = new Producto();
-                $prod->idPrudcto = $row['idPrudcto'];
+                $prod->idProducto = $row['idProducto'];
                 $prod->nombreProducto = $row['nombreProducto'];
                 $prod->codigoProducto = $row['codigoProducto'];
                 $prod->precioProdcuto = $row['precioProdcuto'];
