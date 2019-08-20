@@ -2,6 +2,9 @@
 
 <html class="no-js" lang="en">
 
+<?php
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
+?>
 
 <head>
     <meta charset="utf-8">
@@ -48,7 +51,11 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="#">Agregar Categoria</a></li>
+
+                        <form id="nuevo" action = "form-categoria.php" method="POST"> 
+                        <input type="hidden" id="accion" name="accion" value="nuevo" >
+                        <button>Agregar Categoria</button>
+                        </form>
                         </ol>
                     </div>
                 </div>
@@ -77,12 +84,20 @@
                                         </tr>
                                     </thead>
                                     <tbody> 
-                                        <tr>
-                                            <td>Arma De Caza</td>
-                                            <td><a href="prueba">Modificar</a></td>
-                                            <td><a href="prueba">Eliminar</a></td>
-                                            <td><a href="prueba">Ver</a></td>
-                                        </tr>
+                                            <?php foreach (CategoriaDao::obtenerTodos() as $item)
+                                            {?>
+                                                <tr>
+
+                                                <td><?php echo $item->nombreCategoria ?> <td> 
+                                                <td><a href="prueba">Modificar</a></td>
+                                                <td><a href="prueba">Eliminar</a></td>
+                                                <td><a href="prueba">Ver</a></td>
+
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+                                       
                                         
                                     </tbody>
                                 </table>
