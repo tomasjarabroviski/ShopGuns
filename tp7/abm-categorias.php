@@ -53,6 +53,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                         <ol class="breadcrumb text-right">
 
                         <form id="nuevo" action = "form-categoria.php" method="POST"> 
+                        <input type="hidden" id="id" name="id" value=0>
                         <input type="hidden" id="accion" name="accion" value="nuevo" >
                         <button>Agregar Categoria</button>
                         </form>
@@ -76,7 +77,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                           
                                     <thead>   
                                         <tr>
-                                            <th>Categoria</th>
+                                            <th>Categoria</th>                        
                                             <th>Modificar</th>
                                             <th>Eliminar</th>
                                             <th>Ver</th>
@@ -88,10 +89,33 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                                             {?>
                                                 <tr>
 
-                                                <td><?php echo $item->nombreCategoria ?> <td> 
-                                                <td><a href="prueba">Modificar</a></td>
-                                                <td><a href="prueba">Eliminar</a></td>
-                                                <td><a href="prueba">Ver</a></td>
+                                                <td><?php echo $item->nombreCategoria ?> </td> 
+
+                                                <td>
+                                                <form id="nuevo" action = "form-categoria.php" method="POST"> 
+                                                <input type="hidden" id="accion" name="accion" value="modificar" >
+                                                <input type="hidden" id="id" name="id" value=<?php echo $item->idCategoria ?>  >
+                                                <button>Modificar</button>
+                                                </form>
+                                                </td>
+                                                
+                                                <td>
+                                                <form id="formulario"> 
+                                                <input type="hidden" id="accion" name="accion" value="eliminar" >
+                                                <input type="hidden" id="idCategoria" name="idCategoria" value=<?php echo $item->idCategoria ?>  >
+                                                <button value="Enviar" onclick="Eliminar();" type="button" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-dot-circle-o"></i> Eliminar
+                                                </button>
+                                                </form>
+
+                                                </td>
+                                                <td>
+                                                <form id="Ver" action = "form-categoria.php" method="POST"> 
+                                                <input type="hidden" id="accion" name="accion" value="Ver" >
+                                                <input type="hidden" id="id" name="id" value=<?php echo $item->idCategoria ?>  >
+                                                <button>Ver</button>
+                                                </form>
+                                                </td>
 
                                                 </tr>
                                                 <?php
@@ -115,6 +139,47 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 
     <!-- Right Panel -->
 
+    <script>
+				function Eliminar(){
+                    jQuery(function($){
+
+                    alert('Entre al Eliminar ');
+					var idCategoria = $('#idCategoria').val();
+                    var accion = $('#accion').val();
+					
+
+								//$('#ErrorAmbos').html('');
+								//$('#ErrorNombre').html('');
+								//$('#ErrorClave').html('');
+								$.ajax({
+									async:true,
+									type: "POST",
+									url: "controller/categoriaController.php",                    
+									data:$('#formulario').serialize(),
+									//data: "nombre=martin&apellido=esses",
+									beforeSend:function(){
+										alert('comienzo a procesar');
+														},
+									success:function(resultado) {
+                                        alert(resultado);
+                                        window.location = "abm-categorias.php";				
+									},
+									timeout:8000,
+									error:function(){
+									alert('mensaje de error');
+									return false;
+									}
+									});		
+                                });
+                    	
+							
+							
+                }
+						
+				
+							
+				
+			</script>
 
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <script src="vendors/popper.js/dist/umd/popper.min.js"></script>

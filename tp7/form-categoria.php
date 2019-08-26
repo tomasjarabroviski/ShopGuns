@@ -18,12 +18,15 @@
     <?php
     include_once('referencias/estilos.html');
     ?>
-
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="jquery-3.4.1.js" type="text/javascript"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 
 <body>
  
     <?php
+    include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
     include_once('referencias/leftPanel.html');
     // Left Panel
     ?>
@@ -64,22 +67,42 @@
                                 <strong>Formulario De Categorias</strong> 
                             </div>
                             <div class="card-body card-block">
-                                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+
+                                <form  id="formulario" class="form-horizontal">
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Categoria</label></div>
-                                        <div class="col-12 col-md-9"><input type="text" id="NombreCategoria" name="text-input" placeholder="Categoria" class="form-control"><small class="form-text text-muted"></small></div>
+                                        
+                                      <div class="col-12 col-md-9"><input type="text" id="nombre" name="nombre" placeholder="Categoria" class="form-control" value=                                     
+                                        "<?php 
+                                        
+                                        if ($_POST["id"] != 0){
+
+                                            $resultado = CategoriaDao::ObtenerPorID($_POST["id"]);
+                                            echo $resultado->nombreCategoria;
+                                        } else {
+                                            echo "";
+                                        }
+
+                                        
+                                        ?>">
+                                        
+                                        <small class="form-text text-muted"></small></div>
+                                        <input type="hidden" id="accion" name="accion" value=<?php echo $_POST["accion"]?> >
+                                        <input type="hidden" id="idCategoria" name="idCategoria" value=<?php echo $_POST["id"]?> >
+                                        <label id="ErrorCategoria"></label>
+                                        <button value="Enviar" onclick="Validar();" type="button" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Enviar
+                                        </button>
+
                                     </div>
                                    
                                 </form>
+
+
+                                
                             </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> Enviar
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Resetear
-                                </button>
-                            </div>
+                           
                         </div>
                      
 
@@ -87,6 +110,58 @@
 
                     </div>
                 </div>
+
+
+            <script>
+				function Validar(){
+                    alert('Entre al validar ');
+					var categoria = $('#nombre').val();
+								$('#ErrorCategoria').html('');
+
+					if(categoria==''){
+						// alert('Debe completar ambos campos');
+						$('#ErrorCategoria').html('Debe comentar el campo');
+					}
+					else{
+						
+								//$('#ErrorAmbos').html('');
+								//$('#ErrorNombre').html('');
+								//$('#ErrorClave').html('');
+								$.ajax({
+									async:true,
+									type: "POST",
+									url: "controller/categoriaController.php",                    
+									data:$('#formulario').serialize(),
+									//data: "nombre=martin&apellido=esses",
+									beforeSend:function(){
+										alert('comienzo a procesar');
+														},
+									success:function(resultado) {
+                                        alert(resultado);
+									var errores = JSON.parse(resultado);
+									//alert(resultado);
+									if(errores.errorNombre == null){
+										window.location = "abm-categorias.php";
+									}
+									if(errores.errorNombre != null)
+									{
+										$('#errorNombre').html(errores.errorNombre);
+									}
+									},
+									timeout:8000,
+									error:function(){
+									alert('mensaje de error');
+									return false;
+									}
+									});			
+							
+					}		
+                }
+						
+				
+							
+				
+			</script>
                                
 
 
