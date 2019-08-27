@@ -80,7 +80,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                                             <th>Categoria</th>                        
                                             <th>Modificar</th>
                                             <th>Eliminar</th>
-                                            <th>Ver</th>
+                                         
 
                                         </tr>
                                     </thead>
@@ -99,23 +99,13 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                                                 </form>
                                                 </td>
                                                 
-                                                <td>
-                                                <form id="formulario"> 
-                                                <input type="hidden" id="accion" name="accion" value="eliminar" >
-                                                <input type="hidden" id="idCategoria" name="idCategoria" value=<?php echo $item->idCategoria ?>  >
-                                                <button value="Enviar" onclick="Eliminar();" type="button" class="btn btn-primary btn-sm">
+                                                <td>                                                
+                                                <button value="Enviar" onclick="Eliminar(<?php echo $item->idCategoria; ?>);" type="button" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-dot-circle-o"></i> Eliminar
-                                                </button>
-                                                </form>
+                                                </button>                                                
 
                                                 </td>
-                                                <td>
-                                                <form id="Ver" action = "form-categoria.php" method="POST"> 
-                                                <input type="hidden" id="accion" name="accion" value="Ver" >
-                                                <input type="hidden" id="id" name="id" value=<?php echo $item->idCategoria ?>  >
-                                                <button>Ver</button>
-                                                </form>
-                                                </td>
+                                              
 
                                                 </tr>
                                                 <?php
@@ -140,12 +130,11 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
     <!-- Right Panel -->
 
     <script>
-				function Eliminar(){
+				function Eliminar(id){
                     jQuery(function($){
 
                     alert('Entre al Eliminar ');
-					var idCategoria = $('#idCategoria').val();
-                    var accion = $('#accion').val();
+					
 					
 
 								//$('#ErrorAmbos').html('');
@@ -155,7 +144,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 									async:true,
 									type: "POST",
 									url: "controller/categoriaController.php",                    
-									data:$('#formulario').serialize(),
+									data:"accion=eliminar&idCategoria="+id,
 									//data: "nombre=martin&apellido=esses",
 									beforeSend:function(){
 										alert('comienzo a procesar');

@@ -76,6 +76,7 @@
                                       <div class="col-12 col-md-9"><input type="text" id="nombre" name="nombre" placeholder="Categoria" class="form-control" value=                                     
                                         "<?php 
                                         
+
                                         if ($_POST["id"] != 0){
 
                                             $resultado = CategoriaDao::ObtenerPorID($_POST["id"]);
@@ -85,16 +86,16 @@
                                         }
 
                                         
-                                        ?>">
+                                        ?>"  >
                                         
                                         <small class="form-text text-muted"></small></div>
                                         <input type="hidden" id="accion" name="accion" value=<?php echo $_POST["accion"]?> >
                                         <input type="hidden" id="idCategoria" name="idCategoria" value=<?php echo $_POST["id"]?> >
                                         <label id="ErrorCategoria"></label>
-                                        <button value="Enviar" onclick="Validar();" type="button" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Enviar
+                                        <button value="Enviar" onclick="Validar();" type="button" class="btn btn-primary btn-sm" <?php  if ($_POST["accion"] == "Ver") echo "disabled" ?>>
+                                        <i class="fa fa-dot-circle-o"  ></i> Enviar
                                         </button>
-
+                                      
                                     </div>
                                    
                                 </form>
@@ -145,7 +146,7 @@
 									}
 									if(errores.errorNombre != null)
 									{
-										$('#errorNombre').html(errores.errorNombre);
+										$('#ErrorCategoria').html(errores.errorNombre);
 									}
 									},
 									timeout:8000,

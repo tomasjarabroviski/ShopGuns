@@ -34,25 +34,47 @@ switch ($accion) {
         $resultado = CategoriaDao::ObtenerTodos();
 		echo json_encode($resultado);
         break;    
-        case 'ObtenerTodos':
-        $resultado = CategoriaDao::ObtenerTodos();
-		echo json_encode($resultado);
-        break;
     case 'modificar':
         $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : $_GET['nombre'];	
         $idCategoria = isset($_POST['idCategoria']) ? $_POST['idCategoria'] : $_GET['idCategoria'];	
+        /*$arrayCat = array();
+        $arrayCat = CategoriaDao::ObtenerTodos();
+        $i = 0;
+        $flag = false;
+        while ($i < count($arrayCat) && $flag == false):
+          if   ($arrayCat->nombreCategoria[$i] ==  $nombre) $flag == true;
+            $i++;
+        endwhile;
+        
+        $vector = array();
+        if ($flag == true){
+            $vector["errorNombre"] = 'Esa categoria ya existe';
+            $resultado = json_encode($vector);
+            echo $resultado;
+        }
+*/
+        $vector = array();
+        if ($nombre == '')
+        {
+        $vector["errorNombre"] = 'Debe completar ambos campos';
+        $resultado = json_encode($vector);
+        echo $resultado;
+        } else {
 		$cat = new Categoria();
         $cat->nombreCategoria = $nombre;
         $cat->idCategoria = $idCategoria;
 		$resultado = CategoriaDao::modificar($cat);	
-		echo json_encode($resultado);
+        echo json_encode($resultado);
+        }
         break;
         case 'eliminar':
         echo "Estoy en eliminar";
         $idCategoria = isset($_POST['idCategoria']) ? $_POST['idCategoria'] : $_GET['idCategoria'];	
+        echo $idCategoria;
         $resultado = CategoriaDao::eliminar($idCategoria);	
 		echo json_encode($resultado);
         break; 
+    
 }
 
 ?>
