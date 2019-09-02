@@ -2,7 +2,9 @@
 
 <html class="no-js" lang="en">
 
-
+<?php
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
+?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +15,9 @@
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
 
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="jquery-3.4.1.js" type="text/javascript"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
  
     <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
@@ -65,8 +69,8 @@
                                 <strong class="card-title">Productos</strong>
                             </div>
                             <div class="card-body">
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                          
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                           <!--
                                     <thead>   
                                         <tr>
                                             <th>Nombre</th>
@@ -111,6 +115,7 @@
                                         </tr>
                                         
                                     </tbody>
+                                     -->
                                 </table>
                             </div>
                         </div>
@@ -143,9 +148,61 @@
     <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
+    
 
 
 </body>
+<script>
+    (function ($) {                
+        $.ajax({
+            async:true,
+            type: "POST",
+            url: "controller/productoController.php",                    
+            data:"accion=ObtenerTodos",
+            beforeSend:function(){
+                alert('comienzo a procesar');
+            },
+            success:function(resultado) {
+                var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
+                
+                $('#bootstrap-data-table-export').DataTable( {
+                    data : o,
+                    columns: [
+                        {data : "nombreProducto", title: "Nombre"},
+                        {data : "codigoProducto", title: "Codigo"},
+                        {data : "precioProdcuto", title: "Precio"},
+                        {data : "descuentoProducto", title: "Descuento"},
+                        {data : "stockMinimo", title: "Stock Minimo"},
+                        {data : "stockActual", title: "Stock Actual"},
+                        {data : "categoriaProducto", title: "Categoria"},
+                        {data : "fotoProducto", title: "Foto"},
+                        {data : "videoProducto", title: "Video"},
+                        {data : "descripcionCortaProducto", title: "Descripcion Corta"},
+                        {data : "descripcionLargaProducto", title: "Descripcion Larga"},
+                        {data : "destacadoProducto", title: "Destacado"},
+                        {data : "onSaleProducto", title: "On Sale"},
+                        {data : "mostrarHomeProducto", title: "Mostrar En Home"},
+                        {
+                            data: null,
+                            title: 'Acciones',
+                            className: "text-center",                            
+                            render: function (data){
+                                return '<a href="javascript:editar('+ data.idCategoria +');">Editar</a><a href="javascript:eliminar('+ data.idCategoria +');">Eliminar</a>';
+                            }
+                        }                        
+                    ],
+                });
+                return true;
+            },
+            timeout:8000,
+            error:function(){
+                alert('mensaje de error');
+                return false;
+            }
+        });        
+        
+        
+    })(jQuery);
 
+    </script>
 </html>

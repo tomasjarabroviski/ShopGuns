@@ -1,3 +1,18 @@
+<?php 
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');                               
+
+$accion = 'nuevo';
+$id = 0;
+if (isset($_GET["id"])&&$_GET["id"] != 0){
+    $resultado = CategoriaDao::ObtenerPorID($_GET["id"]);                                            
+    $id = $_GET["id"];
+    $accion = 'modificar';
+} else {
+    $resultado = new categoria();
+}
+
+?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -25,8 +40,7 @@
 
 <body>
  
-    <?php
-    include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
+    <?php    
     include_once('referencias/leftPanel.html');
     // Left Panel
     ?>
@@ -73,26 +87,13 @@
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Categoria</label></div>
                                         
-                                      <div class="col-12 col-md-9"><input type="text" id="nombre" name="nombre" placeholder="Categoria" class="form-control" value=                                     
-                                        "<?php 
-                                        
-
-                                        if ($_POST["id"] != 0){
-
-                                            $resultado = CategoriaDao::ObtenerPorID($_POST["id"]);
-                                            echo $resultado->nombreCategoria;
-                                        } else {
-                                            echo "";
-                                        }
-
-                                        
-                                        ?>"  >
+                                      <div class="col-12 col-md-9"><input type="text" id="nombre" name="nombre" placeholder="Categoria" class="form-control" value="<?php echo $resultado->nombreCategoria; ?>"  >
                                         
                                         <small class="form-text text-muted"></small></div>
-                                        <input type="hidden" id="accion" name="accion" value=<?php echo $_POST["accion"]?> >
-                                        <input type="hidden" id="idCategoria" name="idCategoria" value=<?php echo $_POST["id"]?> >
+                                        <input type="hidden" id="accion" name="accion" value=<?php echo $accion; ?> >
+                                        <input type="hidden" id="idCategoria" name="idCategoria" value=<?php echo $id; ?> >
                                         <label id="ErrorCategoria"></label>
-                                        <button value="Enviar" onclick="Validar();" type="button" class="btn btn-primary btn-sm" <?php  if ($_POST["accion"] == "Ver") echo "disabled" ?>>
+                                        <button value="Enviar" onclick="Validar();" type="button" class="btn btn-primary btn-sm" >
                                         <i class="fa fa-dot-circle-o"  ></i> Enviar
                                         </button>
                                       

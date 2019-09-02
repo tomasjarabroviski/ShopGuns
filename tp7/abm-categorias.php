@@ -16,7 +16,9 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
 
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="jquery-3.4.1.js" type="text/javascript"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
  
     <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
@@ -52,9 +54,8 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
 
-                        <form id="nuevo" action = "form-categoria.php" method="POST"> 
+                        <form id="nuevo" action = "form-categoria.php" method="GET"> 
                         <input type="hidden" id="id" name="id" value=0>
-                        <input type="hidden" id="accion" name="accion" value="nuevo" >
                         <button>Agregar Categoria</button>
                         </form>
                         </ol>
@@ -74,7 +75,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                          
+                          <!--
                                     <thead>   
                                         <tr>
                                             <th>Categoria</th>                        
@@ -85,22 +86,22 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                                         </tr>
                                     </thead>
                                     <tbody> 
-                                            <?php foreach (CategoriaDao::obtenerTodos() as $item)
+                                            <//?php foreach (CategoriaDao::obtenerTodos() as $item)
                                             {?>
                                                 <tr>
 
-                                                <td><?php echo $item->nombreCategoria ?> </td> 
+                                                <td><//?php echo $item->nombreCategoria ?> </td> 
 
                                                 <td>
                                                 <form id="nuevo" action = "form-categoria.php" method="POST"> 
                                                 <input type="hidden" id="accion" name="accion" value="modificar" >
-                                                <input type="hidden" id="id" name="id" value=<?php echo $item->idCategoria ?>  >
+                                                <input type="hidden" id="id" name="id" value=<//?php echo $item->idCategoria ?>  >
                                                 <button>Modificar</button>
                                                 </form>
                                                 </td>
                                                 
                                                 <td>                                                
-                                                <button value="Enviar" onclick="Eliminar(<?php echo $item->idCategoria; ?>);" type="button" class="btn btn-primary btn-sm">
+                                                <button value="Enviar" onclick="Eliminar(<//?php echo $item->idCategoria; ?>);" type="button" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-dot-circle-o"></i> Eliminar
                                                 </button>                                                
 
@@ -108,12 +109,13 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                                               
 
                                                 </tr>
-                                                <?php
+                                                <//?php
                                             }
                                             ?>
                                        
                                         
                                     </tbody>
+                                    -->
                                 </table>
                             </div>
                         </div>
@@ -129,8 +131,67 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 
     <!-- Right Panel -->
 
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+
+    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
     <script>
-				function Eliminar(id){
+    (function ($) {                
+        $.ajax({
+            async:true,
+            type: "POST",
+            url: "controller/categoriaController.php",                    
+            data:"accion=ObtenerTodos",
+            beforeSend:function(){
+                alert('comienzo a procesar');
+            },
+            success:function(resultado) {
+                var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
+                
+                $('#bootstrap-data-table-export').DataTable( {
+                    data : o,
+                    columns: [
+                        {data : "nombreCategoria", title: "Nombre"},
+                        {
+                            data: null,
+                            title: 'Acciones',
+                            className: "text-center",                            
+                            render: function (data){
+                                return '<a href="javascript:editar('+ data.idCategoria +');">Editar</a><a href="javascript:eliminar('+ data.idCategoria +');">Eliminar</a>';
+                            }
+                        }                        
+                    ],
+                });
+                return true;
+            },
+            timeout:8000,
+            error:function(){
+                alert('mensaje de error');
+                return false;
+            }
+        });        
+        
+        
+    })(jQuery);
+                function editar(id){
+                    window.location="form-categoria.php?id="+id;
+                }
+
+
+				function eliminar(id){
                     jQuery(function($){
 
                     alert('Entre al Eliminar ');
@@ -170,23 +231,8 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 				
 			</script>
 
-    <script src="vendors/jquery/dist/jquery.min.js"></script>
-    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    
 
-
-    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="vendors/jszip/dist/jszip.min.js"></script>
-    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
 
 </body>
