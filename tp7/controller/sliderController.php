@@ -6,11 +6,31 @@ switch ($accion) {
     case 'nuevo':
         $foto = isset($_POST['fotoSlider']) ? $_POST['fotoSlider'] : $_GET['fotoSlider'];	
         $texto = isset($_POST['TextoSlider']) ? $_POST['TextoSlider'] : $_GET['TextoSlider'];	
+        $vector = array();
+        if ( $texto != "" && $foto != "")
+        {
+           
 		$slider = new Slider();
         $slider->fotoSlider = $foto;
         $slider->textoSlider = $texto;
 		$resultado = SliderDao::nuevo($slider);	
 		echo json_encode($resultado);
+           
+        }
+        if ($texto == "") 
+        {
+        $vector["errorTexto"] = 'Debe Completar El Campo';
+        }
+        if ($foto == ""){
+            $vector["errorFoto"] = 'Debe Completar El Campo';
+        }
+
+        $resultado = json_encode($vector);
+        echo $resultado;
+
+
+
+	
         break;    
     case 'ObtenerPorID':
         $idSlider = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];	
@@ -31,7 +51,14 @@ switch ($accion) {
         $slider->idSlider = $id;
 		$resultado = SliderDao::modificar($slider);	
 		echo json_encode($resultado);
-        break;    
+        break;  
+        case 'eliminar':
+        echo "Estoy en eliminar";
+        $idSlider = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];	
+        echo $idSlider;
+        $resultado = SliderDao::eliminar($idSlider);	
+		echo json_encode($resultado);
+        break;   
 }
 
 ?>

@@ -1,10 +1,10 @@
 <?php
 include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 
-/*$prod = new Producto();
+$prod = new Producto();
 
-$prod->idproducto = 2;
-$prod->nombreProducto = 'asd';
+
+
 $prod->nombreProducto = 'asd';
 $prod->codigoProducto = 'asd';
 $prod->precioProdcuto = 45;
@@ -19,7 +19,8 @@ $prod->descripcionLargaProducto = 'fghfgj';
 $prod->destacadoProducto = 1;
 $prod->onSaleProducto = 0;
 $prod->mostrarHomeProducto = 1; 
-*/
+$resultado = ProductoDao::nuevo($prod);
+var_dump($resultado);
 /*
 $user = new Usuario();
 $user->idUsuario = 1;
@@ -28,8 +29,7 @@ $user->ConstrasenaUsuario = 'AAAA';
 $user->nombreUsuario = 'dfgdfcg';
 $user->apellidoUsuario = 'sdfsdf';
 */
-$resultado = ProductoDao::ObtenerPorID(4);
-var_dump($resultado);
+
 
 
 ?>

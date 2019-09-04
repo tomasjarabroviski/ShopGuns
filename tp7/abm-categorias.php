@@ -170,7 +170,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                             title: 'Acciones',
                             className: "text-center",                            
                             render: function (data){
-                                return '<a href="javascript:editar('+ data.idCategoria +');">Editar</a><a href="javascript:eliminar('+ data.idCategoria +');">Eliminar</a>';
+                                return '<a href="javascript:editar('+ data.idCategoria +');">Editar</a><a href="javascript:eliminar('+ data.idCategoria +');"> Eliminar</a>';
                             }
                         }                        
                     ],

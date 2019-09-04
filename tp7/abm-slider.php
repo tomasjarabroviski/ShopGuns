@@ -48,7 +48,10 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="#">Agregar Slider</a></li>
+                        <form id="nuevo" action = "form-slider.php" method="GET"> 
+                        <input type="hidden" id="id" name="id" value=0>
+                        <button>Agregar Slider</button>
+                        </form>
                         </ol>
                     </div>
                 </div>
@@ -65,8 +68,8 @@
                                 <strong class="card-title">Slider</strong>
                             </div>
                             <div class="card-body">
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                          
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                           <!--
                                     <thead>   
                                         <tr>
                                             <th>Nombre</th>
@@ -88,6 +91,7 @@
                                         
                                     </tbody>
                                 </table>
+                                  -->
                             </div>
                         </div>
                     </div>
@@ -119,7 +123,87 @@
     <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
+  
+    <script>
+    (function ($) {                
+        $.ajax({
+            async:true,
+            type: "POST",
+            url: "controller/sliderController.php",                    
+            data:"accion=ObtenerTodos",
+            beforeSend:function(){
+                alert('comienzo a procesar');
+            },
+            success:function(resultado) {
+                var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
+                
+                $('#bootstrap-data-table-export').DataTable( {
+                    data : o,
+                    columns: [
+                        {data : "textoSlider", title: "Texto"},
+                        {data : "fotoSlider", title: "Foto"},
+                        {
+                            data: null,
+                            title: 'Acciones',
+                            className: "text-center",                            
+                            render: function (data){
+                                return '<a href="javascript:editar('+ data.idSlider +');">Editar</a><a href="javascript:eliminar('+ data.idSlider +');"> Eliminar</a>';
+                            }
+                        }                        
+                    ],
+                });
+                return true;
+            },
+            timeout:8000,
+            error:function(){
+                alert('mensaje de error');
+                return false;
+            }
+        });        
+        
+        
+    })(jQuery);
+
+            function editar(id){
+                    window.location="form-slider.php?id="+id;
+                }
+
+                function eliminar(id){
+                    jQuery(function($){
+
+                    alert('Entre al Eliminar ');
+					
+								//$('#ErrorAmbos').html('');
+								//$('#ErrorNombre').html('');
+								//$('#ErrorClave').html('');
+								$.ajax({
+									async:true,
+									type: "POST",
+									url: "controller/sliderController.php",                    
+									data:"accion=eliminar&idSlider="+id,
+									//data: "nombre=martin&apellido=esses",
+									beforeSend:function(){
+										alert('comienzo a procesar');
+														},
+									success:function(resultado) {
+                                        alert(resultado);
+                                        window.location = "abm-slider.php";				
+									},
+									timeout:8000,
+									error:function(){
+									alert('mensaje de error');
+									return false;
+									}
+									});		
+                                });
+                    	
+							
+							
+                }
+
+
+
+    </script>
 
 
 </body>
