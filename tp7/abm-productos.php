@@ -168,7 +168,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
             },
             success:function(resultado) {
                 var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
-                
+                console.log(o);
                 $('#bootstrap-data-table-export').DataTable( {
                     data : o,
                     columns: [

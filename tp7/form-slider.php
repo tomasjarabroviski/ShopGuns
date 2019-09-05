@@ -126,23 +126,26 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
 
 				function Validar(){
                     alert('Entre al validar ');
-					var texto = $('#textoSlider').val();
+					var texto = $('#TextoSlider').val();
                     var foto = $('#fotoSlider').val();
+                    var hayErrores = false;
 
 								$('#ErrorFoto').html('');
                                 $('#ErrorTexto').html('');
-
-					if(texto==''){
+                        console.log(texto,foto);
+					if(!texto){
 						// alert('Debe completar ambos campos');
 						$('#ErrorTexto').html('Debe comentar el campo');
-					} else 
-                    {
-                        if (foto == "")
+                        hayErrores = true;
+					} 
+                        if (!foto)
                         {
 	                        // alert('Debe completar ambos campos');
+                            hayErrores = true;
                             $('#ErrorFoto').html('Debe comentar el campo');
-                        } else 
-                        {
+                        }
+
+                        if (!hayErrores){
                             $.ajax({
 									async:true,
 									type: "POST",
@@ -156,6 +159,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                         alert(resultado);
 									var errores = JSON.parse(resultado);
 									alert(resultado);
+                                    console.log(errores);
 									if(errores.errorFoto == null && errores.errorTexto == null){
 										window.location = "abm-slider.php";
 									}
@@ -177,7 +181,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
 
                         }
 
-                    }
+                    
 							
 						
                 }

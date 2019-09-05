@@ -14,7 +14,7 @@ switch ($accion) {
         $slider->fotoSlider = $foto;
         $slider->textoSlider = $texto;
 		$resultado = SliderDao::nuevo($slider);	
-		echo json_encode($resultado);
+		//echo json_encode($resultado);
            
         }
         if ($texto == "") 

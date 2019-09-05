@@ -124,11 +124,11 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                             {?>
                                                
 
-                                                <option value=<?php echo $item->nombreCategoria  ?> selected=
-                                                "<?php if ($item->nombreCategoria == $resultado->categoriaProducto) {echo "selected";}  
+                                                <option value="<?php echo $item->nombreCategoria  ?>" 
+                                                <?php if ($item->nombreCategoria == $resultado->categoriaProducto) {echo "selected";}  
                                                  ?>
 
-                                                "><?php echo $item->nombreCategoria ?> 
+                                                ><?php echo $item->nombreCategoria ?> 
                                                 
                                                 </option>
                              
