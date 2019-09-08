@@ -64,6 +64,7 @@
                             </div>
                             <div class="card-body">
                                 <table class="table">
+                                 <!--
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
@@ -85,6 +86,7 @@
                                             <td><a href="prueba">Ver</a></td>
                                             <td>Activo</td>
                                         </tr>
+                                         -->
                                     </tbody>
                                 </table>
                             </div>

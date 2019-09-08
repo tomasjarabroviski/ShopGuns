@@ -44,15 +44,30 @@ switch ($accion) {
     case 'modificar':
         $foto = isset($_POST['fotoSlider']) ? $_POST['fotoSlider'] : $_GET['fotoSlider'];	
         $texto = isset($_POST['TextoSlider']) ? $_POST['TextoSlider'] : $_GET['TextoSlider'];
-        $id = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];		
+        $id = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];
+        $vector = array();
+        if ( $texto != "" && $foto != "")
+        {
 		$slider = new Slider();
         $slider->fotoSlider = $foto;
         $slider->textoSlider = $texto;
         $slider->idSlider = $id;
-		$resultado = SliderDao::modificar($slider);	
-		echo json_encode($resultado);
+        $resultado = SliderDao::modificar($slider);
+        }
+        if ($texto == "") 
+        {
+        $vector["errorTexto"] = 'Debe Completar El Campo';
+        }
+        if ($foto == ""){
+            $vector["errorFoto"] = 'Debe Completar El Campo';
+        }
+        $resultado = json_encode($vector);
+        echo $resultado;
         break;  
         case 'eliminar':
+
+
+
         echo "Estoy en eliminar";
         $idSlider = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];	
         echo $idSlider;

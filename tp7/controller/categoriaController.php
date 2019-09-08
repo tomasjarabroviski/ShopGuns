@@ -10,20 +10,21 @@ switch ($accion) {
    
     $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : $_GET['nombre'];
     $vector = array();
-    if ($nombre == '')
+    if ($nombre != '')
     {
-    $vector["errorNombre"] = 'Debe completar ambos campos';
-    $resultado = json_encode($vector);
-    echo $resultado;
-    } else 
-    {
- 
-        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : $_GET['nombre'];	
+
 		$cat = new Categoria();
 		$cat->nombreCategoria = $nombre;
 		$resultado = CategoriaDao::nuevo($cat);	
-        echo json_encode($resultado);
-    }
+   
+    }  
+    
+        if ($nombre == ''){
+        $vector["errorNombre"] = 'Debe completar ambos campos';
+        
+        }
+        $resultado = json_encode($vector);
+        echo $resultado;
         break;    
     case 'ObtenerPorID':
         $idCategoria = isset($_POST['idCategoria']) ? $_POST['idCategoria'] : $_GET['idCategoria'];	
@@ -54,18 +55,21 @@ switch ($accion) {
         }
 */
         $vector = array();
-        if ($nombre == '')
+        if ($nombre != '')
         {
-        $vector["errorNombre"] = 'Debe completar ambos campos';
-        $resultado = json_encode($vector);
-        echo $resultado;
-        } else {
-		$cat = new Categoria();
-        $cat->nombreCategoria = $nombre;
-        $cat->idCategoria = $idCategoria;
-		$resultado = CategoriaDao::modificar($cat);	
-        echo json_encode($resultado);
-        }
+            $cat = new Categoria();
+            $cat->nombreCategoria = $nombre;
+            $cat->idCategoria = $idCategoria;
+            $resultado = CategoriaDao::modificar($cat);		
+       
+        }  
+        
+            if ($nombre == ''){
+            $vector["errorNombre"] = 'Debe completar ambos campos';
+            
+            }
+            $resultado = json_encode($vector);
+            echo $resultado;
         break;
         case 'eliminar':
         echo "Estoy en eliminar";

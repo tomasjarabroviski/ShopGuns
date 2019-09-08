@@ -117,15 +117,17 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
             <script>
 				function Validar(){
                     alert('Entre al validar ');
-					var categoria = $('#nombre').val();
+                    var categoria = $('#nombre').val();
+                    var hayErrores = false;
 								$('#ErrorCategoria').html('');
 
-					if(categoria==''){
+					if(!categoria){
+                        hayErrores = true;
 						// alert('Debe completar ambos campos');
 						$('#ErrorCategoria').html('Debe comentar el campo');
 					}
-					else{
-						
+				
+						if (!hayErrores){
 								//$('#ErrorAmbos').html('');
 								//$('#ErrorNombre').html('');
 								//$('#ErrorClave').html('');
@@ -156,8 +158,8 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
 									return false;
 									}
 									});			
+                                }
 							
-					}		
                 }
 						
 				

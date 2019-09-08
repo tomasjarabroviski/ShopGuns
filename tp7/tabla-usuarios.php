@@ -48,9 +48,7 @@
             <div class="col-sm-8">
                 <div class="page-header float-right">
                     <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Agregar Usuario</a></li>
-                        </ol>
+                       
                     </div>
                 </div>
             </div>
@@ -131,17 +129,10 @@
                     data : o,
                     columns: [
                         {data : "nombreUsuario", title: "Nombre"},
-                        {data : "apellidoUsuario", title: "Apelldio"},
+                        {data : "apellidoUsuario", title: "Apellido"},
                         {data : "mailUsuario", title: "Mail"},
                         
-                        {
-                            data: null,
-                            title: 'Acciones',
-                            className: "text-center",                            
-                            render: function (data){
-                                return '<a href="javascript:editar('+ data.idCategoria +');">Editar</a><a href="javascript:eliminar('+ data.idCategoria +');"> Eliminar</a>';
-                            }
-                        }                        
+                                             
                     ],
                 });
                 return true;

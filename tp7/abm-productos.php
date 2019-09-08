@@ -168,6 +168,14 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
             },
             success:function(resultado) {
                 var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
+                
+                var i;
+                for (i=0; i < o.lenght; i++){
+                        if (o[i].destacadoProducto == 1) {o[i].destacadoProducto="Si";} else {o[i].destacadoProducto="No";}
+                        if (o[i].onSaleProducto == 1) {o[i].onSaleProducto="Si";} else {o[i].onSaleProducto="No";}
+                        if (o[i].mostrarHomeProducto == 1) {o[i].mostrarHomeProducto="Si";} else {o[i].mostrarHomeProducto="No";}
+                        
+                }
                 console.log(o);
                 $('#bootstrap-data-table-export').DataTable( {
                     data : o,
@@ -183,7 +191,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
                         {data : "videoProducto", title: "Video"},
                         {data : "descripcionCortaProducto", title: "Descripcion Corta"},
                         {data : "descripcionLargaProducto", title: "Descripcion Larga"},
-                        {data : "destacadoProducto", title: "Destacado"},
+                        {data : "destacadoProducto"  ,  title: "Destacado"},
                         {data : "onSaleProducto" , title: "On Sale"},
                         {data : "mostrarHomeProducto", title: "Mostrar En Home"},
                         {

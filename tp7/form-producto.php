@@ -104,6 +104,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Descuento</label></div>
                                         <div class="col-12 col-md-9"><input type="number" id="descuentoProducto" name="descuentoProducto" placeholder="Descuento" class="form-control"value="<?php echo $resultado->descuentoProducto; ?>"><small class="form-text text-muted"></small></div>
+                                        <label id="ErrordescuentoProducto"></label>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3"><label for="text-input" class=" form-control-label">Stock Minimo</label></div>
@@ -254,8 +255,9 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                     var destacadoProducto = $('#destacadoProducto').val();
                     var onSaleProducto = $('#onSaleProducto').val();
                     var mostrarHomeProducto = $('#mostrarHomeProducto').val();
+                    var hayErrores = false;
 
-								$('#ErrornombreProducto').html('');
+								$('#ErrorNombreProducto').html('');
                                 $('#ErrorcodigoProducto').html('');
                                 $('#ErrorprecioProducto').html('');
                                 $('#ErrordescuentoProducto').html('');
@@ -270,123 +272,190 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                 $('#ErroronSaleProducto').html('');
                                 $('#ErrormostrarHomeProducto').html('');
                                 
+                                console.log(nombreProducto);
+                               
+                                if (!nombreProducto){
+                                    console.log("Voy a mostrar error nombre");
+                                    $('#ErrorNombreProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                console.log(codigoProducto);
+                                if (!codigoProducto){
+                                    $('#ErrorcodigoProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                if (!precioProducto || precioProducto <= 0){
+                                    if (!precioProducto){
+                                    $('#ErrorprecioProducto').html('Debe comentar el campo');
+                                    } else {
+                                        $('#ErrorprecioProducto').html('El precio no puede ser menor o igual a 0');
+                                    }
+                                    hayErrores = true;
+                                }
+                                console.log(descuentoProducto);
+                               
+                                if (!descuentoProducto || descuentoProducto < 0){
+                                    console.log("Voy a mostrar error documento");
+                                    if (!descuentoProducto){
+                                    $('#ErrordescuentoProducto').html('Debe comentar el campo');
+                                    } else {
+                                        $('#ErrordescuentoProducto').html('El descuento no puede ser negativo');
+                                    }
+                                    hayErrores = true;
+                                }
+                                if (!stockMinimo || stockMinimo <= 0){
+                                    if (!stockMinimo){
+                                    $('#ErrorstockMinimo').html('Debe comentar el campo');
+                                    } else {
+                                        $('#ErrorstockMinimo').html('El stock minimo no puede ser igual o menor a 0');
+                                    }
+                                    hayErrores = true;
+                                }
+                                if (!stockActual || stockActual < 0){
+                                    if (!stockActual){
+                                    $('#ErrorstockActual').html('Debe comentar el campo');
+                                    } else {
+                                        $('#ErrorstockActual').html('El stock minimo no puede ser menor a 0');
+                                    }
+                                    hayErrores = true;
+                                }
+                                if (!categoriaProducto){
+                                    $('#ErrorcategoriaProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                if (!fotoProducto){
+                                    $('#ErrorfotoProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                if (!videoProducto){
+                                    $('#ErrorvideoProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                if (!descripcionCortaProducto){
+                                    $('#ErrordescripcionCortaProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                console.log(descripcionLargaProducto);
+                                if (!descripcionLargaProducto){
+                                    $('#ErrordescripcionLargaProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                console.log(destacadoProducto);
+                                if(!document.querySelector('input[name="destacadoProducto"]:checked')){
+                                  
+                                 
+                                    $('#ErrordestacadoProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                if(!document.querySelector('input[name="onSaleProducto"]:checked')){
+                                
+                                    $('#ErroronSaleProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                if(!document.querySelector('input[name="mostrarHomeProducto"]:checked')){
+                                    $('#ErrormostrarHomeProducto').html('Debe comentar el campo');
+                                    hayErrores = true;
+                                }
+                                
 
-					if(nombreProducto=='')
-                    {
-						 alert('Debe completar El nombre');
-						$('#ErrornombreProducto').html('Debe comentar el campo');
-					} else 
-                    {
-                        if(codigoProducto=='')
-                        {
-						alert('Debe completar el codigo');
-						$('#ErrorcodigoProducto').html('Debe comentar el campo');
-					    } else 
-                            {
-                            if(precioProducto=='')
-                            {
-						    alert('Debe completar el precio');
-						    $('#ErrorprecioProducto').html('Debe comentar el campo');
-					        } else
-                                {
-                                if(descuentoProducto=='')
-                                {
-						         alert('Debe completar descuentoProducto');
-						        $('#ErrordescuentoProducto').html('Debe comentar el campo');
-					            } else {
-                                    if(stockMinimo=='')
-                                    {
-						             alert('Debe completar stockMinimo');
-						            $('#ErrorstockMinimo').html('Debe comentar el campo');
-					                } else 
-                                    {
-                                        if(stockActual=='')
-                                        {
-						                 alert('Debe completar stockActual');
-						                $('#ErrorstockActual').html('Debe comentar el campo');
-					                    } else 
-                                        {
-                                            if(categoriaProducto=='')
-                                            {
-						                     alert('Debe completar categoriaProducto');
-						                    $('#ErrorcategoriaProducto').html('Debe comentar el campo');
-					                        } else 
-                                            {
-                                                if(fotoProducto=='')
-                                                {
-						                         alert('Debe completar fotoProducto');
-						                        $('#ErrorfotoProducto').html('Debe comentar el campo');
-					                            } else 
-                                                {
-                                                    if(videoProducto=='')
-                                                    {
-						                             alert('Debe completar videoProducto');
-						                            $('#ErrorvideoProducto').html('Debe comentar el campo');
-					                                } else 
-                                                    {
-                                                        if(descripcionCortaProducto=='')
-                                                        {
-						                                 alert('Debe completar descripcionCortaProducto');
-						                                $('#ErrordescripcionCortaProducto').html('Debe comentar el campo');
-					                                    } else 
-                                                        {
-                                                            if(descripcionLargaProducto=='')
-                                                            {
-						                                     alert('Debe completar descripcionLargaProducto');
-						                                    $('#ErrordescripcionLargaProducto').html('Debe comentar el campo');
-					                                        } else 
-                                                            {
-                                                              
-                                                                            alert('Voy a entrar al AJAX');
-                                                                            $.ajax({
-                                                                            async:true,
-                                                                            type: "POST",
-                                                                            url: "controller/productoController.php",                    
-                                                                            data:$('#formulario').serialize(),
-                                                                            //data: "nombre=martin&apellido=esses",
-                                                                            beforeSend:function(){
-                                                                                alert('comienzo a procesar en producto');
-                                                                                                },
-                                                                            success:function(resultado) {
-                                                                                alert(resultado);
-                                                                            //var errores = JSON.parse(resultado);
-                                                                            //alert(resultado);
-                                                                            //if(errores.errorNombre == null){
-                                                                                window.location = "abm-productos.php";
-                                                                            //}
-                                                                            //if(errores.errorNombre != null)
-                                                                            //{
-                                                                              //  $('#ErrorCategoria').html(errores.errorNombre);
-                                                                            //}
-                                                                            },
-                                                                            timeout:8000,
-                                                                            error:function(){
-                                                                            alert('mensaje de error');
-                                                                            return false;
-                                                                            }
-                                                                            });		
 
+
+
+
+                            if (!hayErrores){              
+                                alert('Voy a entrar al AJAX');
+                                $.ajax({
+                                async:true,
+                                type: "POST",
+                                url: "controller/productoController.php",                    
+                                data:$('#formulario').serialize(),
+                                //data: "nombre=martin&apellido=esses",
+                                beforeSend:function(){
+                                alert('comienzo a procesar en producto');
+                                },
+                                success:function(resultado) {
+                                alert(resultado);
+                                var errores = JSON.parse(resultado);
+                                alert(resultado);
+                                if(errores.errornombreproducto == null && errores.errorcodigoProducto == null
+                                && errores.errorprecioProducto == null && errores.errordescuentoProducto == null && 
+                                 errores.errorstockMinimo == null && errores.errorstockActual == null &&
+                                errores.errorcategoriaProducto == null && errores.errorfotoProducto  == null &&
+                                errores.errorvideoProducto  == null && errores.errordescripcionCortaProducto  == null &&
+                                errores.errordescripcionLargaProducto  == null &&  errores.destacadoProducto == null 
+                                && errores.erroronSaleProducto == null && errores.errormostrarHomeProducto == null){
+                                window.location = "abm-productos.php";
+                                }
+                                if(errores.errornombreproducto != null)
+                                {
+                                    $('#ErrorNombreProducto').html(errores.errornombreproducto);
+                                }
+                                if( errores.errorcodigoProducto != null)
+                                {
+                                    $('#ErrorcodigoProducto').html(errores.errorcodigoProducto);
+                                }
+                                if(errores.errorprecioProducto != null)
+                                {
+                                    $('#ErrorprecioProducto').html(errores.errorprecioProducto);
+                                }
+                                if(errores.errordescuentoProducto != null)
+                                {
+                                    $('#ErrordescuentoProducto').html(errores.errordescuentoProducto);
+                                }
+                                if(errores.errorstockMinimo != null)
+                                {
+                                    $('#ErrorstockMinimo').html(errores.errorstockMinimo);
+                                }
+                                if(errores.errorstockActual != null)
+                                {
+                                    $('#ErrorstockActual').html(errores.errorstockActual);
+                                }
+                                if(errores.errorcategoriaProducto != null)
+                                {
+                                    $('#ErrorcategoriaProducto').html(errores.errorcategoriaProducto);
+                                }
+                                if(errores.errorfotoProducto != null)
+                                {
+                                    $('#ErrorfotoProducto').html(errores.errorfotoProducto);
+                                }
+                                if(errores.errorvideoProducto != null)
+                                {
+                                    $('#ErrorvideoProducto').html(errores.errorvideoProducto);
+                                }
+                                if(errores.errordescripcionCortaProducto != null)
+                                {
+                                    $('#ErrordescripcionCortaProducto').html(errores.errordescripcionCortaProducto);
+                                }
+                                if(errores.errordescripcionLargaProducto != null)
+                                {
+                                    $('#ErrordescripcionLargaProducto').html(errores.errordescripcionLargaProducto);
+                                }
+                                if (errores.destacadoProducto != null){
+                                    $('#ErrordestacadoProducto').html(errores.destacadoProducto);
+                                }
+                                if (errores.erroronSaleProducto != null){
+                                    $('#ErroronSaleProducto').html(errores.erroronSaleProducto);
+                                }
+                                if (errores.errormostrarHomeProducto != null){
+                                    $('#ErrormostrarHomeProducto').html(errores.errormostrarHomeProducto);
+                                }
+                                },
+                                timeout:8000,
+                                error:function(){
+                                alert('mensaje de error');
+                                return false;
+                                }
+                                });		
+                            }
                                                                         
                                                                     
                                                                 
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    }
-                                }
-
-                            }
                     }
 					
 						
 							
 							
-					}		
+					
                 
 						
 				
