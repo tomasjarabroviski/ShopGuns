@@ -1,7 +1,6 @@
 <?php 
 include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');  
 include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');                               
-
 $accion = 'nuevo';
 $id = 0;
 if (isset($_GET["id"])&&$_GET["id"] != 0){
@@ -14,7 +13,6 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
     $resultado->onSaleProducto = 3;
     $resultado->mostrarHomeProducto = 3;
 }
-
 ?>
 
 
@@ -149,7 +147,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                     </div>
                                     <div class="row form-group">
                                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">Imagen</label></div>
-                                            <div class="col-12 col-md-9"><input type="text" id="fotoProducto" name="fotoProducto" class="form-control-file" value="<?php echo $resultado->fotoProducto; ?>"></div>
+                                            <div class="col-12 col-md-9"><input type="file" id="fotoProducto" name="fotoProducto" class="form-control-file" value="<?php echo $resultado->fotoProducto; ?>" accept="image/*"></div>
                                             <label id="ErrorfotoProducto"></label>
                                     </div>
                                     <div class="row form-group">
@@ -240,7 +238,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                
                 <script>
 				function Validar(){
-                    alert('Entre al validar ');
+                  //  alert('Entre al validar ');
 					var nombreProducto = $('#nombreProducto').val();
                     var codigoProducto = $('#codigoProducto').val();
                     var precioProducto = $('#precioProducto').val();
@@ -248,15 +246,17 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                     var stockMinimo = $('#stockMinimo').val();
                     var stockActual = $('#stockActual').val();
                     var categoriaProducto = $('#categoriaProducto').val();
-                    var fotoProducto = $('#fotoProducto').val();
+                    var fotoProducto = $('#fotoProducto').prop('files')[0];
                     var videoProducto = $('#videoProducto').val();
                     var descripcionCortaProducto = $('#descripcionCortaProducto').val();
                     var descripcionLargaProducto = $('#descripcionLargaProducto').val();
                     var destacadoProducto = $('#destacadoProducto').val();
                     var onSaleProducto = $('#onSaleProducto').val();
                     var mostrarHomeProducto = $('#mostrarHomeProducto').val();
-                    var hayErrores = false;
+                    var accion = $('#accion').val();
+                    var id = $('#idProducto').val();
 
+                    var hayErrores = false;
 								$('#ErrorNombreProducto').html('');
                                 $('#ErrorcodigoProducto').html('');
                                 $('#ErrorprecioProducto').html('');
@@ -272,6 +272,26 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                 $('#ErroronSaleProducto').html('');
                                 $('#ErrormostrarHomeProducto').html('');
                                 
+                                var formData = new FormData();
+                                formData.append('fotoProductor', fotoProducto);
+                                formData.append("accion",accion);
+                                formData.append("idProducto",id);
+                                formData.append("nombreProducto",nombreProducto);
+                                formData.append("codigoProducto",codigoProducto);
+                                formData.append("precioProducto",precioProducto);
+                                formData.append("descuentoProducto",descuentoProducto);
+                                formData.append("stockMinimo",stockMinimo);
+                                formData.append("stockActual",stockActual);
+                                formData.append("categoriaProducto",categoriaProducto);
+                                formData.append("fotoProducto",fotoProducto);
+                                formData.append("videoProducto",videoProducto);
+                                formData.append("descripcionCortaProducto",descripcionCortaProducto);
+                                formData.append("descripcionLargaProducto",descripcionLargaProducto);
+                                formData.append("destacadoProducto",destacadoProducto);
+                                formData.append("onSaleProducto",onSaleProducto);
+                                formData.append("mostrarHomeProducto",mostrarHomeProducto);
+
+
                                 console.log(nombreProducto);
                                
                                 if (!nombreProducto){
@@ -323,9 +343,9 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                     $('#ErrorcategoriaProducto').html('Debe comentar el campo');
                                     hayErrores = true;
                                 }
-                                if (!fotoProducto){
-                                    $('#ErrorfotoProducto').html('Debe comentar el campo');
-                                    hayErrores = true;
+                                if( document.getElementById("fotoProducto").files.length == 0 ){
+                                $('#ErrorfotoProducto').html('Debe comentar el campo');
+                                hayErrores = true;
                                 }
                                 if (!videoProducto){
                                     $('#ErrorvideoProducto').html('Debe comentar el campo');
@@ -357,24 +377,22 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                     hayErrores = true;
                                 }
                                 
-
-
-
-
-
                             if (!hayErrores){              
-                                alert('Voy a entrar al AJAX');
+                               // alert('Voy a entrar al AJAX');
                                 $.ajax({
                                 async:true,
                                 type: "POST",
                                 url: "controller/productoController.php",                    
-                                data:$('#formulario').serialize(),
+                                data:formData,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
                                 //data: "nombre=martin&apellido=esses",
                                 beforeSend:function(){
-                                alert('comienzo a procesar en producto');
+                           //     alert('comienzo a procesar en producto');
                                 },
                                 success:function(resultado) {
-                                alert(resultado);
+                              //  alert(resultado);
                                 var errores = JSON.parse(resultado);
                                 alert(resultado);
                                 if(errores.errornombreproducto == null && errores.errorcodigoProducto == null

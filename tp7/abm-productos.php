@@ -93,7 +93,6 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
                                             <th>Modificar</th>
                                             <th>Eliminar</th>
                                             <th>Ver</th>
-
                                         </tr>
                                     </thead>
                                     <tbody> 
@@ -164,7 +163,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
             url: "controller/productoController.php",                    
             data:"accion=ObtenerTodos",
             beforeSend:function(){
-                alert('comienzo a procesar');
+              //  alert('comienzo a procesar');
             },
             success:function(resultado) {
                 var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
@@ -187,7 +186,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
                         {data : "stockMinimo", title: "Stock Minimo"},
                         {data : "stockActual", title: "Stock Actual"},
                         {data : "categoriaProducto", title: "Categoria"},
-                        {data : "fotoProducto", title: "Foto"},
+                        {data : "fotoProducto", title: "Foto", render: getImg},
                         {data : "videoProducto", title: "Video"},
                         {data : "descripcionCortaProducto", title: "Descripcion Corta"},
                         {data : "descripcionLargaProducto", title: "Descripcion Larga"},
@@ -216,17 +215,27 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
         
     })(jQuery);
 
+    function getImg(data, type, full, meta) {
+        var orderType = data.OrderType;
+        var fin = ' " width="100" height="100" />'
+        var img = '<img src="images/'
+        return img.concat(data,fin);
+       // return '<img src="images/ ' .concat(data,fin );
+        
+
+
+        //<img src="images/descarga" />
+       
+    }
+
             function editar(id){
                     window.location="form-producto.php?id="+id;
                 }
-
                 function eliminar(id){
                     jQuery(function($){
-
-                    alert('Entre al Eliminar ');
+                //    alert('Entre al Eliminar ');
 					
 					
-
 								//$('#ErrorAmbos').html('');
 								//$('#ErrorNombre').html('');
 								//$('#ErrorClave').html('');
@@ -237,10 +246,10 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 									data:"accion=eliminar&idProducto="+id,
 									//data: "nombre=martin&apellido=esses",
 									beforeSend:function(){
-										alert('comienzo a procesar');
+									//	alert('comienzo a procesar');
 														},
 									success:function(resultado) {
-                                        alert(resultado);
+                                   //     alert(resultado);
                                         window.location = "abm-productos.php";				
 									},
 									timeout:8000,
@@ -254,8 +263,5 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 							
 							
                 }
-
-
-
     </script>
 </html>

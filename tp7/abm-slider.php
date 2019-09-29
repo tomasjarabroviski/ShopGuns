@@ -132,7 +132,7 @@
             url: "controller/sliderController.php",                    
             data:"accion=ObtenerTodos",
             beforeSend:function(){
-                alert('comienzo a procesar');
+               // alert('comienzo a procesar');
             },
             success:function(resultado) {
                 var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
@@ -141,7 +141,7 @@
                     data : o,
                     columns: [
                         {data : "textoSlider", title: "Texto"},
-                        {data : "fotoSlider", title: "Foto"},
+                        {data : "fotoSlider", title: "Foto", render: getImg},
                         {
                             data: null,
                             title: 'Acciones',
@@ -164,6 +164,21 @@
         
     })(jQuery);
 
+
+    function getImg(data, type, full, meta) {
+        var orderType = data.OrderType;
+        var fin = ' " width="100" height="100" />'
+        var img = '<img src="images/'
+        return img.concat(data,fin);
+       // return '<img src="images/ ' .concat(data,fin );
+        
+
+
+        //<img src="images/descarga" />
+       
+    }
+
+
             function editar(id){
                     window.location="form-slider.php?id="+id;
                 }
@@ -171,7 +186,7 @@
                 function eliminar(id){
                     jQuery(function($){
 
-                    alert('Entre al Eliminar ');
+                   // alert('Entre al Eliminar ');
 					
 								//$('#ErrorAmbos').html('');
 								//$('#ErrorNombre').html('');
@@ -183,10 +198,10 @@
 									data:"accion=eliminar&idSlider="+id,
 									//data: "nombre=martin&apellido=esses",
 									beforeSend:function(){
-										alert('comienzo a procesar');
+									//	alert('comienzo a procesar');
 														},
 									success:function(resultado) {
-                                        alert(resultado);
+                                        //alert(resultado);
                                         window.location = "abm-slider.php";				
 									},
 									timeout:8000,

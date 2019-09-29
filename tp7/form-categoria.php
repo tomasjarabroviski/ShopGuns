@@ -116,7 +116,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
 
             <script>
 				function Validar(){
-                    alert('Entre al validar ');
+                   // alert('Entre al validar ');
                     var categoria = $('#nombre').val();
                     var hayErrores = false;
 								$('#ErrorCategoria').html('');
@@ -138,10 +138,10 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
 									data:$('#formulario').serialize(),
 									//data: "nombre=martin&apellido=esses",
 									beforeSend:function(){
-										alert('comienzo a procesar');
+										//alert('comienzo a procesar');
 														},
 									success:function(resultado) {
-                                        alert(resultado);
+                                      //  alert(resultado);
 									var errores = JSON.parse(resultado);
 									//alert(resultado);
 									if(errores.errorNombre == null){

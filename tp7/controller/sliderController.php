@@ -4,34 +4,35 @@ $accion = isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']; //RECIBO
 
 switch ($accion) {
     case 'nuevo':
-        $foto = isset($_POST['fotoSlider']) ? $_POST['fotoSlider'] : $_GET['fotoSlider'];	
-        $texto = isset($_POST['TextoSlider']) ? $_POST['TextoSlider'] : $_GET['TextoSlider'];	
-        $vector = array();
-        if ( $texto != "" && $foto != "")
-        {
-           
-		$slider = new Slider();
-        $slider->fotoSlider = $foto;
-        $slider->textoSlider = $texto;
-		$resultado = SliderDao::nuevo($slider);	
-		//echo json_encode($resultado);
-           
-        }
-        if ($texto == "") 
-        {
-        $vector["errorTexto"] = 'Debe Completar El Campo';
-        }
-        if ($foto == ""){
-            $vector["errorFoto"] = 'Debe Completar El Campo';
-        }
+       $filename = $_FILES['fotoSlider']['name'];
+       $texto = isset($_POST['TextoSlider']) ? $_POST['TextoSlider'] : $_GET['TextoSlider'];	
+       $vector = array();
+       if ( $texto != "" && $filename != null)
+       {
+        $destination_path = getcwd().DIRECTORY_SEPARATOR;
+        $target_path = $destination_path . basename( $_FILES["fotoSlider"]["name"]);
+        move_uploaded_file($_FILES['fotoSlider']['tmp_name'], 'C:\wamp64\www\ShopGuns\tp7\images'. DIRECTORY_SEPARATOR. basename( $_FILES["fotoSlider"]["name"]));
+       
+        $slider = new Slider();
+       $slider->fotoSlider = $filename;
+       $slider->textoSlider = $texto;
+       $resultado = SliderDao::nuevo($slider);	
+       //echo json_encode($resultado);
+          
+       }
+       if ($texto == "") 
+       {
+       $vector["errorTexto"] = 'Debe Completar El Campo';
+       } 
+       if ($filename == null){
+        $vector["errorFoto"] = 'Debe Completar El Campo';
+       }
+     
+       $resultado = json_encode($vector);
+       echo $resultado;
+   
+       break;    
 
-        $resultado = json_encode($vector);
-        echo $resultado;
-
-
-
-	
-        break;    
     case 'ObtenerPorID':
         $idSlider = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];	
         $resultado = SliderDao::ObtenerPorID($idSlider);
@@ -42,14 +43,23 @@ switch ($accion) {
 		echo json_encode($resultado);
         break;    
     case 'modificar':
-        $foto = isset($_POST['fotoSlider']) ? $_POST['fotoSlider'] : $_GET['fotoSlider'];	
+        $filename = $_FILES['fotoSlider']['name'];
         $texto = isset($_POST['TextoSlider']) ? $_POST['TextoSlider'] : $_GET['TextoSlider'];
         $id = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];
         $vector = array();
-        if ( $texto != "" && $foto != "")
+        if ( $texto != "" && $filename != null)
         {
+
+        $resultados = SliderDao::ObtenerPorID($id);
+        unlink('C:\wamp64\www\ShopGuns\tp7\images'. DIRECTORY_SEPARATOR .  $resultados->fotoSlider);   
+
+        $destination_path = getcwd().DIRECTORY_SEPARATOR;
+        $target_path = $destination_path . basename( $_FILES["fotoSlider"]["name"]);
+        move_uploaded_file($_FILES['fotoSlider']['tmp_name'], 'C:\wamp64\www\ShopGuns\tp7\images'. DIRECTORY_SEPARATOR. basename( $_FILES["fotoSlider"]["name"]));
+           
+
 		$slider = new Slider();
-        $slider->fotoSlider = $foto;
+        $slider->fotoSlider = $filename;
         $slider->textoSlider = $texto;
         $slider->idSlider = $id;
         $resultado = SliderDao::modificar($slider);
@@ -58,19 +68,18 @@ switch ($accion) {
         {
         $vector["errorTexto"] = 'Debe Completar El Campo';
         }
-        if ($foto == ""){
+        if ($filename == null){
             $vector["errorFoto"] = 'Debe Completar El Campo';
-        }
+           }
+      
         $resultado = json_encode($vector);
         echo $resultado;
-        break;  
+        break; 
+
         case 'eliminar':
-
-
-
-        echo "Estoy en eliminar";
         $idSlider = isset($_POST['idSlider']) ? $_POST['idSlider'] : $_GET['idSlider'];	
-        echo $idSlider;
+        $resultado = SliderDao::ObtenerPorID($idSlider);
+        unlink('C:\wamp64\www\ShopGuns\tp7\images'. DIRECTORY_SEPARATOR .  $resultado->fotoSlider);
         $resultado = SliderDao::eliminar($idSlider);	
 		echo json_encode($resultado);
         break;   

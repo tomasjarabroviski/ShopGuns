@@ -91,7 +91,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                     </div>
                                     <div class="row form-group">
                                             <div class="col col-md-3"><label for="file-input" class=" form-control-label">Imagen</label></div>
-                                            <div class="col-12 col-md-9"><input type="text" id="fotoSlider" name="fotoSlider" class="form-control-file" value="<?php echo $resultado->fotoSlider; ?>"></div>
+                                            <div class="col-12 col-md-9"><input type="file" id="fotoSlider" name="fotoSlider" class="form-control-file" value="<?php echo 'images/' . $resultado->fotoSlider; ?>" accept="image/*"></div>
                                             <label id="ErrorFoto"></label>
                                             <input type="hidden" id="accion" name="accion" value=<?php echo $accion; ?> >
                                             <input type="hidden" id="idSlider" name="idSlider" value=<?php echo $id; ?> >
@@ -125,51 +125,59 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                             <script>
 
 				function Validar(){
-                    alert('Entre al validar ');
 					var texto = $('#TextoSlider').val();
-                    var foto = $('#fotoSlider').val();
+                    var foto = $('#fotoSlider').prop('files')[0];
+                    var accion = $('#accion').val();
+                    var id = $('#idSlider').val();
                     var hayErrores = false;
-
 								$('#ErrorFoto').html('');
                                 $('#ErrorTexto').html('');
-                        console.log(texto,foto);
+                     
 					if(!texto){
 						// alert('Debe completar ambos campos');
 						$('#ErrorTexto').html('Debe comentar el campo');
                         hayErrores = true;
 					} 
-                        if (!foto)
-                        {
-	                        // alert('Debe completar ambos campos');
-                            hayErrores = true;
-                            $('#ErrorFoto').html('Debe comentar el campo');
+                    if( document.getElementById("fotoSlider").files.length == 0 ){
+                        $('#ErrorFoto').html('Debe comentar el campo');
+                        hayErrores = true;
                         }
 
+                        var formData = new FormData();
+                        formData.append('fotoSlider', foto);
+                        formData.append("TextoSlider",texto);
+                        formData.append("accion",accion);
+                        formData.append("idSlider",id);
                         if (!hayErrores){
                             $.ajax({
+                               
 									async:true,
 									type: "POST",
 									url: "controller/sliderController.php",                    
-									data:$('#formulario').serialize(),
+									data:formData,
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
 									//data: "nombre=martin&apellido=esses",
 									beforeSend:function(){
-										alert('comienzo a procesar');
+									//	alert('comienzo a procesar');
 														},
 									success:function(resultado) {
-                                        alert(resultado);
+                                      //  alert(resultado);
 									var errores = JSON.parse(resultado);
-									alert(resultado);
+									//alert(resultado);
                                     console.log(errores);
-									if(errores.errorFoto == null && errores.errorTexto == null){
+                                  //  alert("Estoy de vuelta");
+									if(errores.errorTexto == null && errores.errorFoto == null){
 										window.location = "abm-slider.php";
-									}
-									if(errores.errorFoto != null)
-									{
-										$('#ErrorFoto').html(errores.errorFoto);
 									}
                                     if(errores.errorTexto != null)
 									{
 										$('#ErrorTexto').html(errores.errorTexto);
+									}
+                                    if(errores.errorFoto != null)
+									{
+										$('#ErrorFoto').html(errores.errorFoto);
 									}
 									},
 									timeout:8000,

@@ -72,9 +72,9 @@ switch ($accion) {
             echo $resultado;
         break;
         case 'eliminar':
-        echo "Estoy en eliminar";
+   //     echo "Estoy en eliminar";
         $idCategoria = isset($_POST['idCategoria']) ? $_POST['idCategoria'] : $_GET['idCategoria'];	
-        echo $idCategoria;
+      //  echo $idCategoria;
         $resultado = CategoriaDao::eliminar($idCategoria);	
 		echo json_encode($resultado);
         break; 

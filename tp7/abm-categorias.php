@@ -156,7 +156,8 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
             url: "controller/categoriaController.php",                    
             data:"accion=ObtenerTodos",
             beforeSend:function(){
-                alert('comienzo a procesar');
+              
+              //  alert('comienzo a procesar');
             },
             success:function(resultado) {
                 var o = JSON.parse(resultado);//A la variable le asigno el json decodificado                
@@ -194,7 +195,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 				function eliminar(id){
                     jQuery(function($){
 
-                    alert('Entre al Eliminar ');
+                //    alert('Entre al Eliminar ');
 					
 					
 
@@ -208,10 +209,10 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 									data:"accion=eliminar&idCategoria="+id,
 									//data: "nombre=martin&apellido=esses",
 									beforeSend:function(){
-										alert('comienzo a procesar');
+									//	alert('comienzo a procesar');
 														},
 									success:function(resultado) {
-                                        alert(resultado);
+                                       // alert(resultado);
                                         window.location = "abm-categorias.php";				
 									},
 									timeout:8000,
