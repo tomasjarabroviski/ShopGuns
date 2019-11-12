@@ -7,9 +7,13 @@
 <meta name="description" content="OneTech shop project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	
+<?php 
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/slider.php');                               
+?>
+		
 	<?php
-    	include_once('referencias/stylesheet.html');
+		include_once('referencias/stylesheet.html');
+	 
     	?>
 
 </head>
@@ -35,7 +39,7 @@
 		<!-- Main Navigation -->
 
 		<?php
-    	include_once('referencias/main-navigation.html');
+    	include_once('referencias/main-navigation.php');
     	?>
 
 							<!-- Menu Trigger -->
@@ -86,81 +90,43 @@
 
 			<div class="owl-carousel owl-theme banner_2_slider">
 
-				<!-- Banner 2 Slider Item -->
-				<div class="owl-item">
+			<?php foreach (SliderDao::obtenerTodos() as $item)
+                            {?>
+                                
+
+								<div class="owl-item">
 					<div class="banner_2_item">
 						<div class="container fill_height">
 							<div class="row fill_height">
 								<div class="col-lg-4 col-md-6 fill_height">
 									<div class="banner_2_content">
-										<div class="banner_2_category">Laptops</div>
-										<div class="banner_2_title">MacBook Air 13</div>
-										<div class="banner_2_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
-										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
-										<div class="button banner_2_button"><a href="#">Explore</a></div>
+								
+										<div class="banner_2_title"><?php echo $item->textoSlider ?></div>
+										<div class="button banner_2_button"><a href="#">Ver Mas Productos</a></div>
 									</div>
 									
 								</div>
 								<div class="col-lg-8 col-md-6 fill_height">
 									<div class="banner_2_image_container">
-										<div class="banner_2_image"><img src="images/banner_2_product.png" alt=""></div>
+										<div class="banner_2_image"><img src="images/<?php echo $item->fotoSlider ?>" alt=""></div>
 									</div>
 								</div>
 							</div>
 						</div>			
 					</div>
 				</div>
-
+                
+        
+                                <?php
+                            }
+                        ?>
+                            
 				<!-- Banner 2 Slider Item -->
-				<div class="owl-item">
-					<div class="banner_2_item">
-						<div class="container fill_height">
-							<div class="row fill_height">
-								<div class="col-lg-4 col-md-6 fill_height">
-									<div class="banner_2_content">
-										<div class="banner_2_category">Laptops</div>
-										<div class="banner_2_title">MacBook Air 13</div>
-										<div class="banner_2_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
-										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
-										<div class="button banner_2_button"><a href="#">Explore</a></div>
-									</div>
-									
-								</div>
-								<div class="col-lg-8 col-md-6 fill_height">
-									<div class="banner_2_image_container">
-										<div class="banner_2_image"><img src="images/banner_2_product.png" alt=""></div>
-									</div>
-								</div>
-							</div>
-						</div>			
-					</div>
-				</div>
+		
 
-				<!-- Banner 2 Slider Item -->
-				<div class="owl-item">
-					<div class="banner_2_item">
-						<div class="container fill_height">
-							<div class="row fill_height">
-								<div class="col-lg-4 col-md-6 fill_height">
-									<div class="banner_2_content">
-										<div class="banner_2_category">Laptops</div>
-										<div class="banner_2_title">MacBook Air 13</div>
-										<div class="banner_2_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</div>
-										<div class="rating_r rating_r_4 banner_2_rating"><i></i><i></i><i></i><i></i><i></i></div>
-										<div class="button banner_2_button"><a href="#">Explore</a></div>
-									</div>
-									
-								</div>
-								<div class="col-lg-8 col-md-6 fill_height">
-									<div class="banner_2_image_container">
-										<div class="banner_2_image"><img src="images/banner_2_product.png" alt=""></div>
-									</div>
-								</div>
-							</div>
-						</div>			
-					</div>
-				</div>
+			
 
+			
 			</div>
 		</div>
 	</div>

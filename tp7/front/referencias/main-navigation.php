@@ -1,3 +1,7 @@
+<?php
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
+?>
+
 <nav class="main_nav">
     <div class="container">
         <div class="row">
@@ -14,11 +18,19 @@
                         </div>
 
                         <ul class="cat_menu">
-                            <li><a href="#">Carabina <i class="fas fa-chevron-right ml-auto"></i></a></li>
-                            <li><a href="#">Armas Largas<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="#">Armas Cortas<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="#">Carabina<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="contact.html">Municion<i class="fas fa-chevron-right"></i></a></li>
+                            
+                        <?php foreach (CategoriaDao::obtenerTodos() as $item)
+                            {?>
+                                
+
+                                <li><a href="#"><?php echo $item->nombreCategoria ?><i class="fas fa-chevron-right ml-auto"></i></a></li>
+                
+        
+                                <?php
+                            }
+                        ?>
+                            
+                        
                         </ul>
                     </div>
 
