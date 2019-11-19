@@ -5,7 +5,7 @@ $prod = new Producto();
 
 
 
-$prod->nombreProducto = 'asd';
+/*$prod->nombreProducto = 'asd';
 $prod->codigoProducto = 'asd';
 $prod->precioProdcuto = 45;
 $prod->descuentoProducto = 3;
@@ -18,8 +18,8 @@ $prod->descripcionCortaProducto = 'sdf' ;
 $prod->descripcionLargaProducto = 'fghfgj';
 $prod->destacadoProducto = 1;
 $prod->onSaleProducto = 0;
-$prod->mostrarHomeProducto = 1; 
-$resultado = ProductoDao::nuevo($prod);
+$prod->mostrarHomeProducto = 1; */
+$resultado = ProductoDao::destacadosProductos();
 var_dump($resultado);
 /*
 $user = new Usuario();
