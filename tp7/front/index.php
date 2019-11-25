@@ -160,7 +160,10 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 							<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
 								<div class="viewed_image">
 								
+								<a href="/ShopGuns/tp7/front/producto.php?id=<?php echo $item->idProducto ?>">
 								<img src="/ShopGuns/tp7/images/<?php echo $item->fotoProducto ?>" alt="">
+								</a>
+							
 								
 								</div>
 								<div class="viewed_content text-center">

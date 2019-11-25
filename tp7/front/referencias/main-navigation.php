@@ -40,7 +40,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                         <ul class="standard_dropdown main_nav_dropdown">
                             <li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
                         
-                            <li><a href="#">Productos<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="/ShopGuns/tp7/front/shop.php">Productos<i class="fas fa-chevron-down"></i></a></li>
                             <li><a href="#">Quienes Somos<i class="fas fa-chevron-down"></i></a></li>
                             <li><a href="#">Preguntas Frecuentes<i class="fas fa-chevron-down"></i></a></li>
                             <li><a href="contact.html">Contacto<i class="fas fa-chevron-down"></i></a></li>

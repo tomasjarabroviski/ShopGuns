@@ -2,6 +2,12 @@
 include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 $accion = isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']; //RECIBO EL PARAMETRO ACCION
 switch ($accion) {
+
+    case 'porCategoria':
+    $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : $_GET['categoria']; //RECIBO EL PARAMETRO ACCION
+    $resultado = ProductoDao::ProductosPorCategoria($categoria);
+    echo json_encode($resultado);
+    break;
     case 'nuevo':
         
         $nombreProducto = isset($_POST['nombreProducto']) ? $_POST['nombreProducto'] : $_GET['nombreProducto'];	

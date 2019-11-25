@@ -1,3 +1,21 @@
+
+<?php 
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');  
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');                               
+$accion = 'nuevo';
+$id = 0;
+if (isset($_GET["id"])&&$_GET["id"] != 0){
+    $resultado = ProductoDao::ObtenerPorID($_GET["id"]);                                            
+    $id = $_GET["id"];
+   
+} else {
+    $resultado = new Producto();
+    $resultado->destacadoProducto = 3;
+    $resultado->onSaleProducto = 3;
+    $resultado->mostrarHomeProducto = 3;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +59,7 @@
 		<!-- Main Navigation -->
 
 		<?php
-    	include_once('referencias/main-navigation.html');
+    
     	?>
 
 							<!-- Menu Trigger -->
@@ -74,16 +92,16 @@
 
 				<!-- Selected Image -->
 				<div class="col-lg-5 order-lg-2 order-1">
-					<div class="image_selected"><img src="images/single_4.jpg" alt=""></div>
+					<div class="image_selected"><img src="/ShopGuns/tp7/images/<?php echo $resultado->fotoProducto ?>" alt=""></div>
 				</div>
 
 				<!-- Description -->
 				<div class="col-lg-5 order-3">
 					<div class="product_description">
-						<div class="product_category">Bersa</div>
-						<div class="product_name">MacBook Air 13</div>
+						<div class="product_category"><?php echo $resultado->categoriaProducto;?></div>
+						<div class="product_name"><?php echo $resultado->nombreProducto;?></div>
 						<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-						<div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
+						<div class="product_text"><p><?php echo $resultado->descripcionLargaProducto;?></p></div>
 						<div class="order_info d-flex flex-row">
 							<form action="#">
 								<div class="clearfix" style="z-index: 1000;">
@@ -102,7 +120,7 @@
 
 								</div>
 
-								<div class="product_price">$2000</div>
+								<div class="product_price"><?php echo $resultado->precioProdcuto;?></div>
 								<div class="button_container">
 									<button type="button" class="button cart_button">Añadir al carro</button>
 									<div class="product_fav"><i class="fas fa-heart"></i></div>

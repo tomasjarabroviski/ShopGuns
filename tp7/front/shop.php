@@ -1,3 +1,7 @@
+<?php
+include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +42,7 @@
 		<!-- Main Navigation -->
 
 		<?php
-    	include_once('referencias/main-navigation.html');
+ 
     	?>
 
 
@@ -85,29 +89,38 @@
 						<div class="sidebar_section">
 							<div class="sidebar_title">Categoria</div>
 							<ul class="sidebar_categories">
-								<li><a href="#">Armas Cortas</a></li>
-								<li><a href="#">ArmasLargas</a></li>
-								<li><a href="#">Carabina</a></li>
+
+									
+
+
+						<?php foreach (CategoriaDao::obtenerTodos() as $cat)
+                            {
+                            $params["id"] = $cat->idCategoria;
+                            $params["nombre"] = $cat->nombreCategoria;  
+								?>
+								
+								<button style="background: none!important; 
+								  border: none; 
+                                            padding: 0!important;
+                                            font-family: roboto, sans-serif;
+											cursor: pointer;" class="text-muted"
+											 onclick=<?php echo "filtrarPorCategoria(" . json_encode($params) . ");"; ?>
+                                            id=<?php echo "btn" . $cat->idCategoria ?>>
+                                            <?php echo $cat->nombreCategoria; ?>
+								</button>
+										
+				
+                                
+								
+								
+                                <?php
+                            }
+								?>
+								
 							</ul>
 						</div>
-						<div class="sidebar_section filter_by_section">
-							<div class="sidebar_title">Filtrado Por:</div>
-							<div class="sidebar_subtitle">Precio</div>
-							<div class="filter_price">
-								<div id="slider-range" class="slider_range"></div>
-								<p>Rango: </p>
-								<p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
-							</div>
-						</div>
-						<div class="sidebar_section">
-							<div class="sidebar_subtitle brands_subtitle">Marca</div>
-							<ul class="brands_list">
-								<li class="brand"><a href="#">Bersa</a></li>
-								<li class="brand"><a href="#">Beretta</a></li>
-								<li class="brand"><a href="#">Glock</a></li>
-								<li class="brand"><a href="#">IWI</a></li>
-							</ul>
-						</div>
+					
+						
 						
 					</div>
 
@@ -135,7 +148,7 @@
 							</div>
 						</div>
 
-						<div class="product_grid">
+						<div class="product_grid" id="">
 							<div class="product_grid_border"></div>
 
 							<!-- Product Item -->
@@ -309,3 +322,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </body>
 
 </html>
+
+<script>
+
+const filtrarPorCategoria = (cat) => {
+			console.log("LLegue");
+        const {
+            id,
+            nombre
+        } = cat;
+      
+    };
+
+</script>
