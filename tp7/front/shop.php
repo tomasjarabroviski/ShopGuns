@@ -148,98 +148,12 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 							</div>
 						</div>
 
-						<div class="product_grid" id="">
+						<div class="product_grid"  id="productos">
 							<div class="product_grid_border"></div>
 
-							<!-- Product Item -->
-							<div class="product_item discount">
-								<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/featured_1.png" alt=""></div>
-								<div class="product_content">
-									<div class="product_price">$225<span>$300</span></div>
-									<div class="product_name"><div><a href="#" tabindex="0">Huawei MediaPad...</a></div></div>
-								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul>
-							</div>
-
-							<!-- Product Item -->
-							<div class="product_item is_new">
-								<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_6.jpg" alt=""></div>
-								<div class="product_content">
-									<div class="product_price">$379</div>
-									<div class="product_name"><div><a href="#" tabindex="0">Nokia 3310 (2017)</a></div></div>
-								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul>
-							</div>
-
-							<!-- Product Item -->
-							<div class="product_item is_new">
-								<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_7.jpg" alt=""></div>
-								<div class="product_content">
-									<div class="product_price">$225</div>
-									<div class="product_name"><div><a href="#" tabindex="0">Rapoo 7100p Gray</a></div></div>
-								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul>
-							</div>
-
-							<!-- Product Item -->
-							<div class="product_item is_new">
-								<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_8.jpg" alt=""></div>
-								<div class="product_content">
-									<div class="product_price">$379</div>
-									<div class="product_name"><div><a href="#" tabindex="0">Canon EF</a></div></div>
-								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul>
-							</div>
-
-							<!-- Product Item -->
-							<div class="product_item is_new">
-								<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/shop_2.jpg" alt=""></div>
-								<div class="product_content">
-									<div class="product_price">$225</div>
-									<div class="product_name"><div><a href="#" tabindex="0">Gembird SPK-103</a></div></div>
-								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul>
-							</div>
-
-							<!-- Product Item -->
-							<div class="product_item is_new">
-								<div class="product_border"></div>
-								<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/featured_5.png" alt=""></div>
-								<div class="product_content">
-									<div class="product_price">$379</div>
-									<div class="product_name"><div><a href="#" tabindex="0">Canon STM Kit...</a></div></div>
-								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
-								<ul class="product_marks">
-									<li class="product_mark product_discount">-25%</li>
-									<li class="product_mark product_new">new</li>
-								</ul>
-							</div>
+							
+						
+				
 
 						</div>
 
@@ -324,6 +238,27 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </html>
 
 <script>
+$.ajax({
+            async:true,
+            type: "POST",
+            url: "/ShopGuns/tp7/controller/productoController.php",                    
+            data:"accion=ObtenerTodos",
+			success:function(resultado){
+				var arrayproductos = JSON.parse(resultado);
+				cambiarproductos(arrayproductos);
+			}
+
+});
+
+function cambiarproductos(productos){
+	console.log(productos);
+	productos.forEach(function(producto){
+		var nuevoProducto = '<div class="product_item is_new"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""></div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
+		$("#productos").append(nuevoProducto);
+	});
+}
+
+
 
 const filtrarPorCategoria = (cat) => {
 			console.log("LLegue");
@@ -331,6 +266,8 @@ const filtrarPorCategoria = (cat) => {
             id,
             nombre
         } = cat;
+		console.log(nombre);
+
       
     };
 
