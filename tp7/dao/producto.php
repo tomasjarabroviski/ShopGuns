@@ -4,18 +4,47 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/model/producto.php');
 class ProductoDao {
 
 
-    public static function filtrarpor($categoria,$filtro,$orden){
+    public static function filtrarpor($categoria,$ordenPrecio,$ordenDesc){
+        $cont = 0;
+        $arrayProd = array();
         $DBH = new PDO("mysql:host=127.0.0.1;dbname=sistema", "root", "");
         $params = array
         (
             ":categoria" => $categoria
         );
+        $query = 'SELECT * FROM productos';
 
-        if ($categoria != 'No'){
-            $query = 'SELECT * FROM productos where categoriaProducto = :categoria';
-        } else {
-            $query = 'SELECT * FROM productos';
+        $query .= $categoria != 'No' ? ' WHERE productos.categoriaProducto = :categoria' : '';
+        $query .= $ordenPrecio ? ' ORDER BY productos.precioProdcuto' : ' ORDER BY productos.nombreProducto';
+        $query .= $ordenDesc ? ' DESC' : '';
+        $STH = $DBH->prepare($query);
+        $STH->setFetchMode(PDO::FETCH_ASSOC);
+        $STH->execute($params);   
+        if ($STH->rowCount() > 0)
+        {
+            while($row = $STH->fetch())
+            {
+                $prod = new Producto();
+                $prod->idProducto = $row['idProducto'];
+                $prod->nombreProducto = $row['nombreProducto'];
+                $prod->codigoProducto = $row['codigoProducto'];
+                $prod->precioProdcuto = $row['precioProdcuto'];
+                $prod->descuentoProducto = $row['descuentoProducto'];
+                $prod->stockMinimo = $row['stockMinimo'];
+                $prod->stockActual = $row['stockActual'];
+                $prod->categoriaProducto = $row['categoriaProducto'];
+                $prod->fotoProducto = $row['fotoProducto'];
+                $prod->videoProducto = $row['videoProducto'];
+                $prod->descripcionCortaProducto = $row['descripcionCortaProducto'];
+                $prod->descripcionLargaProducto = $row['descripcionLargaProducto'];
+                $prod->destacadoProducto = $row['destacadoProducto'];
+                $prod->onSaleProducto = $row['onSaleProducto'];
+                $prod->mostrarHomeProducto = $row['mostrarHomeProducto'];
+                $arrayProd[$cont] = $prod;
+                $cont++;
+            }
         }
+        return  $arrayProd;
             
 
 

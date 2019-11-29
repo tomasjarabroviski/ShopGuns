@@ -3,6 +3,9 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 $accion = isset($_POST['accion']) ? $_POST['accion'] : $_GET['accion']; //RECIBO EL PARAMETRO ACCION
 switch ($accion) {
 
+
+
+
     case 'porCategoria':
     $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : $_GET['categoria']; //RECIBO EL PARAMETRO ACCION
     $resultado = ProductoDao::ProductosPorCategoria($categoria);
@@ -120,6 +123,13 @@ switch ($accion) {
         break;
     case 'ObtenerTodos':
         $resultado = ProductoDao::ObtenerTodos();
+		echo json_encode($resultado);
+        break;    
+        case 'Filtrar':
+        $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : $_GET['categoria'];	
+        $ordenPrecio = isset($_POST['ordenPrecio']) ? $_POST['ordenPrecio'] : $_GET['ordenPrecio'];
+        $ordenDesc = isset($_POST['ordenDesc']) ? $_POST['ordenDesc'] : $_GET['ordenDesc'];		
+        $resultado = ProductoDao::filtrarpor($categoria, $ordenPrecio, $ordenDesc);
 		echo json_encode($resultado);
         break;    
     case 'modificar':

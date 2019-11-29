@@ -135,16 +135,15 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 							<div class="shop_product_count"><span>186</span> Productos Encontrados</div>
 							<div class="shop_sorting">
 								<span>Mostrarlo Por:</span>
-								<ul>
-									<li>
-										<span class="sorting_text">Elegir<i class="fas fa-chevron-down"></span></i>
-										<ul>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>Mas Vendido</li>
-											<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>Nombre</li>
-											<li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>Precio</li>
-										</ul>
-									</li>
-								</ul>
+								<div class="product_bar_single">
+										<select class="wide" onchange="cambiarOrden(event);">
+											<option value="0">Elegir Opcion</option>
+                                            <option value="1" data-display="Orden alfabético">Orden alfabético</option>
+                                            <option value="2">Precio</option>
+                                            <option value="3">Orden alfabético (desc)</option>
+                                            <option value="4">Precio (desc)</option>
+                                        </select>
+                                    </div> 
 							</div>
 						</div>
 
@@ -282,5 +281,31 @@ const filtrarPorCategoria = (cat) => {
 });
       
     };
+
+	const cambiarOrden = (e) => {
+        const select = e.target;
+        const selected = select.options[select.selectedIndex].value;
+        console.log(selected);
+		$ordenPrecio;
+		$Asc;
+		case "1":
+              $ordenPrecio = false;
+                };
+                break;
+
+		case "2":
+              $ordenPrecio = true;
+                };
+                break;
+
+		case "3":
+              $Asc = true;
+                };
+                break;
+		case "4":
+              $Asc = false;
+                };
+                break;
+	}
 
 </script>

@@ -19,7 +19,7 @@ $prod->descripcionLargaProducto = 'fghfgj';
 $prod->destacadoProducto = 1;
 $prod->onSaleProducto = 0;
 $prod->mostrarHomeProducto = 1; */
-$resultado = ProductoDao::ProductosPorCategoria('asd');
+$resultado = ProductoDao::filtrarpor('No',true,false);
 var_dump($resultado);
 /*
 $user = new Usuario();
