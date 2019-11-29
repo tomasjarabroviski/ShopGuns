@@ -251,8 +251,9 @@ $.ajax({
 });
 
 function cambiarproductos(productos){
-	console.log(productos);
+
 	productos.forEach(function(producto){
+		
 		var nuevoProducto = '<div class="product_item is_new"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""></div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
 		$("#productos").append(nuevoProducto);
 	});
@@ -267,7 +268,18 @@ const filtrarPorCategoria = (cat) => {
             nombre
         } = cat;
 		console.log(nombre);
+		$.ajax({
+            async:true,
+            type: "POST",
+            url: "/ShopGuns/tp7/controller/productoController.php",                    
+            data:"accion=porCategoria&categoria=" + nombre,
+			success:function(resultado){
+				var arrayproductos = JSON.parse(resultado);
+				console.log(arrayproductos);
+				cambiarproductos(arrayproductos);
+			}
 
+});
       
     };
 

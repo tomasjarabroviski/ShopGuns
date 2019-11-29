@@ -3,6 +3,24 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/model/producto.php');
 
 class ProductoDao {
 
+
+    public static function filtrarpor($categoria,$filtro,$orden){
+        $DBH = new PDO("mysql:host=127.0.0.1;dbname=sistema", "root", "");
+        $params = array
+        (
+            ":categoria" => $categoria
+        );
+
+        if ($categoria != 'No'){
+            $query = 'SELECT * FROM productos where categoriaProducto = :categoria';
+        } else {
+            $query = 'SELECT * FROM productos';
+        }
+            
+
+
+    }
+
     public static function ObtenerPorID($id) 
     {
         $prod = new Producto();
