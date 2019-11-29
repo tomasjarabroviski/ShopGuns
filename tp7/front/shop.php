@@ -137,7 +137,6 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 								<span>Mostrarlo Por:</span>
 								<div class="product_bar_single">
 										<select class="wide" onchange="cambiarOrden(event);">
-											<option value="0">Elegir Opcion</option>
                                             <option value="1" data-display="Orden alfabético">Orden alfabético</option>
                                             <option value="2">Precio</option>
                                             <option value="3">Orden alfabético (desc)</option>
@@ -237,6 +236,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </html>
 
 <script>
+var categoria = 'No';
+var porPrecio = 0;
+var dec = 0;
 $.ajax({
             async:true,
             type: "POST",
@@ -250,14 +252,17 @@ $.ajax({
 });
 
 function cambiarproductos(productos){
-
+	$("#productos").html("");
 	productos.forEach(function(producto){
 		
-		var nuevoProducto = '<div class="product_item is_new"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""></div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
+		var nuevoProducto = '<div class="product_item is_new prod"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""></div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
 		$("#productos").append(nuevoProducto);
 	});
 }
 
+function cambiarModo(){
+	$(".prod").toggleClass("w-100");
+}
 
 
 const filtrarPorCategoria = (cat) => {
@@ -267,11 +272,12 @@ const filtrarPorCategoria = (cat) => {
             nombre
         } = cat;
 		console.log(nombre);
+		categoria = nombre;
 		$.ajax({
             async:true,
             type: "POST",
             url: "/ShopGuns/tp7/controller/productoController.php",                    
-            data:"accion=porCategoria&categoria=" + nombre,
+            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec,
 			success:function(resultado){
 				var arrayproductos = JSON.parse(resultado);
 				console.log(arrayproductos);
@@ -286,26 +292,50 @@ const filtrarPorCategoria = (cat) => {
         const select = e.target;
         const selected = select.options[select.selectedIndex].value;
         console.log(selected);
-		$ordenPrecio;
-		$Asc;
+		switch (selected){
 		case "1":
-              $ordenPrecio = false;
-                };
+              porPrecio = 0;
+			  dec = 0;
+                
                 break;
 
 		case "2":
-              $ordenPrecio = true;
-                };
+		porPrecio = 1;
+		dec = 0;
+               
                 break;
 
 		case "3":
-              $Asc = true;
-                };
+		porPrecio  = 0;
+		dec = 1;
+               
                 break;
 		case "4":
-              $Asc = false;
-                };
+		porPrecio  = 1;
+		dec = 1;
+                
                 break;
+
+			
+
+
+		}
+		console.log("Orden precio: " + porPrecio + " Orden DESC: " + dec + " Categoria: " + categoria);
+		$.ajax({
+            async:true,
+            type: "POST",
+            url: "/ShopGuns/tp7/controller/productoController.php",                    
+            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec,
+			success:function(resultado){
+				var arrayproductos = JSON.parse(resultado);
+				console.log(arrayproductos);
+				cambiarproductos(arrayproductos);
+			}
+
+});
+
+
+
 	}
 
 </script>
