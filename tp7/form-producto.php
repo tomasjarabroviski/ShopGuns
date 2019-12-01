@@ -250,12 +250,17 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                     var videoProducto = $('#videoProducto').val();
                     var descripcionCortaProducto = $('#descripcionCortaProducto').val();
                     var descripcionLargaProducto = $('#descripcionLargaProducto').val();
-                    var destacadoProducto = $('#destacadoProducto').val();
-                    var onSaleProducto = $('#onSaleProducto').val();
-                    var mostrarHomeProducto = $('#mostrarHomeProducto').val();
+
+                    var destacadoProducto = $('input:radio[name=destacadoProducto]:checked').val();
+                    var onSaleProducto = $('input:radio[name=onSaleProducto]:checked').val();
+                    var mostrarHomeProducto = $('input:radio[name=mostrarHomeProducto]:checked').val();
+
                     var accion = $('#accion').val();
                     var id = $('#idProducto').val();
 
+                                console.log(destacadoProducto);
+                                console.log(onSaleProducto);
+                                console.log(mostrarHomeProducto);
                     var hayErrores = false;
 								$('#ErrorNombreProducto').html('');
                                 $('#ErrorcodigoProducto').html('');
@@ -292,7 +297,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                 formData.append("mostrarHomeProducto",mostrarHomeProducto);
 
 
-                                console.log(nombreProducto);
+                                
                                
                                 if (!nombreProducto){
                                     console.log("Voy a mostrar error nombre");
@@ -360,7 +365,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
                                     $('#ErrordescripcionLargaProducto').html('Debe comentar el campo');
                                     hayErrores = true;
                                 }
-                                console.log(destacadoProducto);
+                              
                                 if(!document.querySelector('input[name="destacadoProducto"]:checked')){
                                   
                                  

@@ -255,7 +255,7 @@ function cambiarproductos(productos){
 	$("#productos").html("");
 	productos.forEach(function(producto){
 		
-		var nuevoProducto = '<div class="product_item is_new prod"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""></div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
+		var nuevoProducto = '<div class="product_item is_new prod"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"> <a href="/ShopGuns/tp7/front/producto.php?id=' +  producto.idProducto   +'"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""> </a> </div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
 		$("#productos").append(nuevoProducto);
 	});
 }

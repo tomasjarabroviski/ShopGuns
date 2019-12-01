@@ -154,7 +154,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/producto.php');
 						<!-- Recently Viewed Item -->
 						
 					
-						<?php foreach (ProductoDao::obtenerTodos() as $item)
+						<?php foreach (ProductoDao::destacadosProductos() as $item)
                             {?>
 						<div class="owl-item">
 							<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
