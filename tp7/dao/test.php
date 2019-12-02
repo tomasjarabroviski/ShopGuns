@@ -19,7 +19,7 @@ $prod->descripcionLargaProducto = 'fghfgj';
 $prod->destacadoProducto = 1;
 $prod->onSaleProducto = 0;
 $prod->mostrarHomeProducto = 1; */
-$resultado = ProductoDao::filtrarpor('Pistola',false,false,'b');
+$resultado = ProductoDao::productosRelacionados(6,'Revolver');
 var_dump($resultado);
 /*
 $user = new Usuario();

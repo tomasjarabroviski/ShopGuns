@@ -308,20 +308,21 @@ class ProductoDao {
         return  $arrayProd;
         
     }
-    public static function productosRelacionados($producto) 
+    public static function productosRelacionados($producto,$categoria) 
     {
         $params = array
         (
-            ":id" => $producto
+            ":id" => $producto,
+            ":categoria" => $categoria
            
         );
         $cont = 0;
         $arrayProd = array();
         $DBH = new PDO("mysql:host=127.0.0.1;dbname=sistema", "root", "");
-		$query = 'SELECT * FROM productos WHERE productos.nombreProducto != :id';
+        $query = 'SELECT * FROM productos WHERE productos.idProducto != :id AND productos.categoriaProducto = :categoria';
 		$STH = $DBH->prepare($query);
         $STH->setFetchMode(PDO::FETCH_ASSOC);
-        $STH->execute();
+        $STH->execute($params);
         if ($STH->rowCount() > 0)
         {
             while($row = $STH->fetch())

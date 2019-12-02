@@ -142,7 +142,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
 			<div class="row">
 				<div class="col">
 					<div class="viewed_title_container">
-						<h3 class="viewed_title">Productos Destacados</h3>
+						<h3 class="viewed_title">Productos Relacionados</h3>
 						<div class="viewed_nav_container">
 							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -155,7 +155,7 @@ if (isset($_GET["id"])&&$_GET["id"] != 0){
 
 						<div class="owl-carousel owl-theme viewed_slider">
 							
-						<?php foreach (ProductoDao::destacadosProductos() as $item)
+						<?php foreach (ProductoDao::productosRelacionados($resultado->idProducto,$resultado->categoriaProducto) as $item)
                             {?>
 							<div class="owl-item">
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
