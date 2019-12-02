@@ -34,7 +34,7 @@
 		<!-- Main Navigation -->
 
 		<?php
-    	include_once('referencias/main-navigation.html');
+    	include_once('referencias/main-navigation.php');
     	?>
 			
 							<!-- Menu Trigger -->

@@ -129,8 +129,9 @@ switch ($accion) {
         $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : $_GET['categoria'];	
         $ordenPrecio = isset($_POST['ordenPrecio']) ? $_POST['ordenPrecio'] : $_GET['ordenPrecio'];
         $ordenDesc = isset($_POST['ordenDesc']) ? $_POST['ordenDesc'] : $_GET['ordenDesc'];	
+        $palabra = isset($_POST['palabra']) ? $_POST['palabra'] : $_GET['palabra'];	
         
-        $resultado = ProductoDao::filtrarpor($categoria, $ordenPrecio, $ordenDesc);
+        $resultado = ProductoDao::filtrarpor($categoria, $ordenPrecio, $ordenDesc,$palabra);
 		echo json_encode($resultado);
         break;    
     case 'modificar':

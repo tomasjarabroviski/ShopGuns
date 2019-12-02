@@ -15,8 +15,9 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Buscar Productos">
+									<form action="/ShopGuns/tp7/front/shop.php?categoria=No" method="GET" class="header_search_form clearfix">
+										<input type="hidden" id="categoria" name="categoria" value="No">
+										<input type="text" required="required"  id="TextoBuscar" name="TextoBuscar" class="header_search_input" placeholder="Buscar Productos">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
 												<span class="custom_dropdown_placeholder clc">Categorias</span>

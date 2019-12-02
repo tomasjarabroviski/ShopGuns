@@ -23,7 +23,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                             {?>
                                 
 
-                                <li><a href="/ShopGuns/tp7/front/shop.php?categoria=<?php echo $item->nombreCategoria ?>"><?php echo $item->nombreCategoria ?><i class="fas fa-chevron-right ml-auto"></i></a></li>
+                                <li><a href="/ShopGuns/tp7/front/shop.php?TextoBuscar=No&categoria=<?php echo $item->nombreCategoria ?>"><?php echo $item->nombreCategoria ?><i class="fas fa-chevron-right ml-auto"></i></a></li>
                 
         
                                 <?php
@@ -40,9 +40,9 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                         <ul class="standard_dropdown main_nav_dropdown">
                             <li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
                         
-                            <li><a href="/ShopGuns/tp7/front/shop.php?categoria=No">Productos<i class="fas fa-chevron-down"></i></a></li>
-                            <li><a href="#">Quienes Somos<i class="fas fa-chevron-down"></i></a></li>
-                            <li><a href="#">Preguntas Frecuentes<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="/ShopGuns/tp7/front/shop.php?categoria=No&TextoBuscar=No">Productos<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="/ShopGuns/tp7/front/QuienesSomos.php">Quienes Somos<i class="fas fa-chevron-down"></i></a></li>
+                            
                             <li><a href="contact.html">Contacto<i class="fas fa-chevron-down"></i></a></li>
                         </ul>
                     </div>

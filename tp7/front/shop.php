@@ -2,6 +2,9 @@
 include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 ?>
 
+<?php $resultado = $_GET["categoria"]; ?> 
+<?php $resultado2 = $_GET["TextoBuscar"]; ?> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -236,16 +239,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </html>
 
 <script>
-	 <?php $resultado = $_GET["categoria"]; ?> 
-var categoria =  '<?php echo ($resultado);?>'
+	
+	
+
+var categoria =  '<?php echo ($resultado); ?>';
 var porPrecio = 0;
 var dec = 0;
+var palabra = '<?php echo ($resultado2); ?>';
+
+console.log(palabra);
 console.log(categoria);
 $.ajax({
             async:true,
             type: "POST",
 			url: "/ShopGuns/tp7/controller/productoController.php",                 
-			data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec,
+			data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec + "&palabra=" + palabra,
 			success:function(resultado){
 				var arrayproductos = JSON.parse(resultado);
 				cambiarproductos(arrayproductos);
@@ -257,7 +265,7 @@ function cambiarproductos(productos){
 	$("#productos").html("");
 	productos.forEach(function(producto){
 		
-		var nuevoProducto = '<div class="product_item is_new prod"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"> <a href="/ShopGuns/tp7/front/producto.php?id=' +  producto.idProducto   +'"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""> </a> </div> <div class="product_content"> <div class="product_price">' + (producto.precioProdcuto *  (producto.descuentoProducto / 100)) + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
+		var nuevoProducto = '<div class="product_item is_new prod"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"> <a href="/ShopGuns/tp7/front/producto.php?id=' +  producto.idProducto   +'"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""> </a> </div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto  + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
 		$("#productos").append(nuevoProducto);
 	});
 }
@@ -270,6 +278,7 @@ function cambiarModo(){
 
 const filtrarPorCategoria = (cat) => {
 			console.log("LLegue");
+			palabra = 'No';
         const {
             id,
             nombre
@@ -280,7 +289,7 @@ const filtrarPorCategoria = (cat) => {
             async:true,
             type: "POST",
             url: "/ShopGuns/tp7/controller/productoController.php",                    
-            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec,
+            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec + "&palabra=No",
 			success:function(resultado){
 				var arrayproductos = JSON.parse(resultado);
 				console.log(arrayproductos);
@@ -328,7 +337,7 @@ const filtrarPorCategoria = (cat) => {
             async:true,
             type: "POST",
             url: "/ShopGuns/tp7/controller/productoController.php",                    
-            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec,
+            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec + "&palabra=" + palabra,
 			success:function(resultado){
 				var arrayproductos = JSON.parse(resultado);
 				console.log(arrayproductos);
