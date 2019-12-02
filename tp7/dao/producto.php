@@ -244,7 +244,8 @@ class ProductoDao {
     {
         $params = array
         (
-            ":id" => $producto   
+            ":id" => $producto
+           
         );
         $cont = 0;
         $arrayProd = array();

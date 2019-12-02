@@ -236,14 +236,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </html>
 
 <script>
-var categoria = 'No';
+	 <?php $resultado = $_GET["categoria"]; ?> 
+var categoria =  '<?php echo ($resultado);?>'
 var porPrecio = 0;
 var dec = 0;
+console.log(categoria);
 $.ajax({
             async:true,
             type: "POST",
-            url: "/ShopGuns/tp7/controller/productoController.php",                    
-            data:"accion=ObtenerTodos",
+			url: "/ShopGuns/tp7/controller/productoController.php",                 
+			data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec,
 			success:function(resultado){
 				var arrayproductos = JSON.parse(resultado);
 				cambiarproductos(arrayproductos);
@@ -261,7 +263,8 @@ function cambiarproductos(productos){
 }
 
 function cambiarModo(){
-	$(".prod").toggleClass("w-100");
+	$(".prod").toggleClass('w-100 style=max-height:300px');
+	
 }
 
 
