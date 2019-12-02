@@ -119,7 +119,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
                                 <?php
                             }
 								?>
-								
+							
 							</ul>
 						</div>
 					
@@ -132,7 +132,8 @@ include_once ($_SERVER["DOCUMENT_ROOT"] . '/shopguns/tp7/dao/categoria.php');
 				<div class="col-lg-9">
 					
 					<!-- Shop Content -->
-
+					<button class="btn-danger" style='width:120px; height:25px' onclick="restrablecer()" >Restablecer Filtros</button>
+					<button class="btn-primary" style='width:120px; height:25px' onclick="cambiar()" >Cambiar Marco</button>
 					<div class="shop_content">
 						<div class="shop_bar clearfix">
 							<div class="shop_product_count"><span>186</span> Productos Encontrados</div>
@@ -241,6 +242,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script>
 	
 	
+	var modo = 0;
 
 var categoria =  '<?php echo ($resultado); ?>';
 var porPrecio = 0;
@@ -249,6 +251,30 @@ var palabra = '<?php echo ($resultado2); ?>';
 
 console.log(palabra);
 console.log(categoria);
+function restrablecer(){
+	console.log("Toque El boton Restablecer");
+	categoria = 'No';
+	palabra = 'No';
+	 $.ajax({
+            async:true,
+            type: "POST",
+			url: "/ShopGuns/tp7/controller/productoController.php",                 
+			data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec + "&palabra=" + palabra,
+			success:function(resultado){
+				var arrayproductos = JSON.parse(resultado);
+				cambiarproductos(arrayproductos);
+				if (modo == 1){
+					console.log("voy a cambir el modo de vista");
+					cambiarModo();
+					
+				} 
+			}
+
+});
+
+	
+}
+
 $.ajax({
             async:true,
             type: "POST",
@@ -265,20 +291,37 @@ function cambiarproductos(productos){
 	$("#productos").html("");
 	productos.forEach(function(producto){
 		
-		var nuevoProducto = '<div class="product_item is_new prod"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"> <a href="/ShopGuns/tp7/front/producto.php?id=' +  producto.idProducto   +'"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""> </a> </div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto  + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
+		var nuevoProducto = '<div class="product_item is_new prod prod2"  style="float:left;"> <div class="product_border"></div> <div class="product_image d-flex flex-column align-items-center justify-content-center"> <a href="/ShopGuns/tp7/front/producto.php?id=' +  producto.idProducto   +'"><img src="/ShopGuns/tp7/images/' + producto.fotoProducto + ' " alt=""> </a> </div> <div class="product_content"> <div class="product_price">' + producto.precioProdcuto  + '</div> <div class="product_name"><div><a href="#" tabindex="0">' + producto.nombreProducto + '</a></div></div> </div> <div class="product_fav"><i class="fas fa-heart"></i></div> <ul class="product_marks"> <li class="product_mark product_discount">' + producto.descuentoProducto + '</li> <li class="product_mark product_new">new</li> </ul></div>';
 		$("#productos").append(nuevoProducto);
 	});
 }
 
 function cambiarModo(){
-	$(".prod").toggleClass('w-100 style=max-height:300px');
+	$(".prod").toggleClass('w-100');
+	$(".prod2").toggleClass('');
+
+
 	
+}
+
+function cambiar(){
+	if (modo == 1) {
+		modo = 0;
+	} else {
+		modo = 1;
+	}
+	cambiarModo();
 }
 
 
 const filtrarPorCategoria = (cat) => {
+
+		
+	
+
+	
 			console.log("LLegue");
-			palabra = 'No';
+			//palabra = 'No';
         const {
             id,
             nombre
@@ -289,11 +332,17 @@ const filtrarPorCategoria = (cat) => {
             async:true,
             type: "POST",
             url: "/ShopGuns/tp7/controller/productoController.php",                    
-            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec + "&palabra=No",
+            data:"accion=Filtrar&categoria=" + categoria + "&ordenPrecio=" + porPrecio + "&ordenDesc=" + dec + "&palabra=" + palabra,
 			success:function(resultado){
 				var arrayproductos = JSON.parse(resultado);
 				console.log(arrayproductos);
 				cambiarproductos(arrayproductos);
+				console.log("voy a cambir el modo de vista X1");
+				if (modo == 1){
+					console.log("voy a cambir el modo de vista");
+					cambiarModo();
+					
+				} 
 			}
 
 });
@@ -342,6 +391,11 @@ const filtrarPorCategoria = (cat) => {
 				var arrayproductos = JSON.parse(resultado);
 				console.log(arrayproductos);
 				cambiarproductos(arrayproductos);
+				if (modo == 1){
+					console.log("voy a cambir el modo de vista");
+					cambiarModo();
+					
+				} 
 			}
 
 });

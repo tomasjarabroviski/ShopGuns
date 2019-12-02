@@ -36,9 +36,12 @@ class ProductoDao {
     }
         $query = 'SELECT * FROM productos';
         $query .= $categoria != 'No' ? ' WHERE productos.categoriaProducto = :categoria' : '';
-
-        $query .= $palabra != 'No' ? ' WHERE productos.nombreProducto LIKE "%":palabra"%"' : '' ;
-
+        
+        if ($categoria != 'No'){
+        $query .= $palabra != 'No' ? ' AND productos.nombreProducto LIKE "%":palabra"%"' : '' ;
+        } else {
+            $query .= $palabra != 'No' ? ' WHERE productos.nombreProducto LIKE "%":palabra"%"' : '' ;
+        }
         $query .= $ordenPrecio ? ' ORDER BY productos.precioProdcuto' : ' ORDER BY productos.nombreProducto';
         $query .= $ordenDesc ? ' DESC' : '';
 
